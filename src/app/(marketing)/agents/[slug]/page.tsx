@@ -98,7 +98,7 @@ export default async function AgentPage({
         </RevealGroup>
       </Section>
 
-      <Section eyebrow="Configuration" title="What we would pick" width="wide">
+      <Section eyebrow="Configuration" title="What we would pick">
         <SpecTable
           columns={SPEC_COLUMNS}
           rows={[

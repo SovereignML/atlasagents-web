@@ -60,7 +60,7 @@ export default function PricingPage() {
         ].filter(Boolean)}
       />
 
-      <Section width="wide" className="!pt-6">
+      <Section className="!pt-6">
         <SectionIndex
           entries={[
             {
@@ -102,7 +102,6 @@ export default function PricingPage() {
         eyebrow="Managed plans"
         title="We run the server. You run the agent."
         lead="Every self-serve plan provisions a real, isolated machine. What changes between tiers is your credit allowance, how many agents stay live, and how many people can log in."
-        width="full"
       >
         <ManagedPlansSection />
       </Section>
@@ -112,7 +111,6 @@ export default function PricingPage() {
         eyebrow="Server sizes"
         title="Nine machines, published specs"
         lead="Shared vCPU covers most agent work. Dedicated cores are there for production agents that must not contend for CPU. You can resize later without rebuilding the agent."
-        width="wide"
       >
         <SpecTable
           columns={SIZE_COLUMNS}
@@ -146,7 +144,6 @@ export default function PricingPage() {
         eyebrow="Bring your own server"
         title="Keep your hardware. Hand us the agent."
         lead="Paste one public key into your server's authorized_keys and we take it from there — install, run, monitor, restart, configure, back up. There is no daemon for you to install and no compute for us to bill."
-        width="full"
       >
         <ByosSection />
       </Section>
@@ -233,7 +230,6 @@ export default function PricingPage() {
         id="which"
         eyebrow="Which one am I?"
         title="If you are still deciding, decide here"
-        width="full"
       >
         <DecisionMatrix
           rows={DEPLOYMENT_MODE_MATRIX}

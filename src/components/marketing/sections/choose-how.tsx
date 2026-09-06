@@ -17,7 +17,6 @@ export function ChooseHow({ id = "how" }: { id?: string }) {
       eyebrow="Which one am I?"
       title="Four ways to run an agent. Most people want the second."
       lead="You can try one for free, let us run it, run it on hardware you already own, or hand us the whole fleet. The difference is who owns the server and who pays for it."
-      width="full"
     >
       <DecisionMatrix
         rows={DEPLOYMENT_MODE_MATRIX}

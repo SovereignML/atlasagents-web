@@ -98,20 +98,22 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
 
 export function KnowledgeBaseFAQ() {
   return (
-    <section className="relative pt-32 pb-8 overflow-hidden lg:pb-12">
+    <section id="faq" className="relative mx-auto max-w-[1180px] scroll-mt-28 px-6 pt-24 pb-8 lg:pb-12">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-faint/30 to-transparent" />
 
-      <div className="max-w-[720px] mx-auto px-8 relative z-10">
+      <div className="relative z-10 max-w-[860px]">
         <motion.div
           initial={{ opacity: 0, y: 48, filter: "blur(4px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: easing.outExpo }}
-          className="text-center mb-12"
+          className="mb-12"
         >
-          <p className="text-xs text-accent-blue-rest uppercase tracking-[0.2em] mb-4 font-medium">Knowledge Base</p>
-          <h2 className="text-[clamp(2rem,4vw,44px)] font-bold text-text-loud tracking-[-1.5px]">
-            Common questions.
+          <span className="inline-flex items-center gap-2 rounded-full border border-hero/[0.10] bg-hero/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-hero/60">
+            Questions
+          </span>
+          <h2 className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white" style={{ fontWeight: 400 }}>
+            The things people ask before deploying one
           </h2>
         </motion.div>
 

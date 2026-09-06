@@ -27,27 +27,25 @@ export function Section({
   children?: ReactNode
   className?: string
   align?: "left" | "center"
-  width?: "wide" | "narrow" | "full"
+  width?: "wide" | "narrow"
 }) {
-  const maxWidth =
-    width === "narrow"
-      ? "max-w-[860px]"
-      : width === "full"
-        ? "max-w-[1400px]"
-        : "max-w-[1180px]"
+  // `width` sets the measure of the CONTENT, never the position of the section.
+  // Every section shares one outer container so the left gutter is constant all
+  // the way down the page — mixing centered containers of different widths made
+  // the left edge visibly zig-zag while scrolling.
+  const innerWidth = width === "narrow" ? "max-w-[860px]" : undefined
 
   return (
     <section
       id={id}
       className={cn(
         // scroll-mt clears the fixed navbar when an anchor link lands here.
-        "relative mx-auto scroll-mt-28 px-6 py-16 lg:py-24",
-        maxWidth,
+        "relative mx-auto max-w-[1180px] scroll-mt-28 px-6 py-16 lg:py-24",
         className,
       )}
     >
       {(eyebrow || title || lead) && (
-        <Reveal className={cn("mb-10 lg:mb-14", align === "center" && "text-center")}>
+        <Reveal className={cn("mb-10 lg:mb-14", innerWidth, align === "center" && "mx-auto text-center")}>
           {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
           {title && (
             <h2
@@ -69,7 +67,7 @@ export function Section({
           )}
         </Reveal>
       )}
-      {children}
+      {innerWidth ? <div className={innerWidth}>{children}</div> : children}
     </section>
   )
 }

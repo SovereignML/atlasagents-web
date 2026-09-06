@@ -134,7 +134,7 @@ export default function ComparisonPage() {
         secondary={{ label: "See pricing", href: "/pricing" }}
       />
 
-      <Section id="table" eyebrow="Side by side" title="What each approach asks of you" width="wide">
+      <Section id="table" eyebrow="Side by side" title="What each approach asks of you">
         <SpecTable
           columns={COLUMNS}
           rows={ROWS.map((row) => ({

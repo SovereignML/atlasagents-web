@@ -43,7 +43,7 @@ export default function RuntimesPage() {
         secondary={{ label: "See plans", href: "/pricing#plans" }}
       />
 
-      <Section id="side-by-side" eyebrow="Side by side" title="What actually differs" width="wide">
+      <Section id="side-by-side" eyebrow="Side by side" title="What actually differs">
         <SpecTable
           columns={COLUMNS}
           rows={rows}
@@ -65,7 +65,6 @@ export default function RuntimesPage() {
         eyebrow="Which one am I?"
         title="The decision is narrower than it looks"
         lead="Almost everyone should take the default. The one question that actually matters is whether something other than a person needs to talk to your agent."
-        width="full"
       >
         <DecisionMatrix
           options={RUNTIMES.map((r) => ({

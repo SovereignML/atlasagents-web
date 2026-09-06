@@ -68,7 +68,6 @@ export function ComparisonTeaser() {
       eyebrow="How we compare"
       title="Against a blank server, and against building it"
       lead="The honest comparison is not with other agent products — it is with the two things you would otherwise do. Here is the short version."
-      width="wide"
     >
       <SpecTable columns={COLUMNS} rows={ROWS} />
 

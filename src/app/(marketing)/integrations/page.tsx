@@ -60,7 +60,6 @@ export default function IntegrationsPage() {
         eyebrow="The catalog"
         title="Models, clouds, and tools"
         lead="Where an agent has no native connector, it uses the interface a person would — a real browser — or drives its own self-hosted n8n server."
-        width="wide"
       >
         <CatalogGrid items={items} groups={groups} allLabel="Everything" columns={4} />
       </Section>

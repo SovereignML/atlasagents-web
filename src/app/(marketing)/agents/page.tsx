@@ -41,7 +41,7 @@ export default function AgentsPage() {
         secondary={{ label: "See pricing", href: "/pricing" }}
       />
 
-      <Section width="wide">
+      <Section>
         <CatalogGrid items={items} groups={AGENT_TEAMS} allLabel="Every role" columns={4} />
       </Section>
 

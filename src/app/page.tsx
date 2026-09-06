@@ -20,9 +20,9 @@ import { WhatsIncluded } from "@/components/marketing/sections/whats-included"
 import { ServerSizes } from "@/components/marketing/sections/server-sizes"
 
 // Carried over from the brand site — these still earn their place.
-import { IntegrationConstellation } from "@/components/marketing/sections/integration-constellation"
+import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
 import { ComparisonTeaser } from "@/components/marketing/sections/comparison-teaser"
-import { PricingElevation } from "@/components/marketing/sections/pricing-elevation"
+import { PricingPreview } from "@/components/marketing/sections/pricing-preview"
 import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base-faq"
 import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
 
@@ -33,6 +33,8 @@ import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
 //     feature sets from positioning researched once. ComparisonTeaser replaces
 //     it with the approach-based framing /comparison uses and defends; running
 //     both would have the site contradicting itself.
+//   PricingElevation — superseded by PricingPreview, which shares the section
+//     gutter and links to BYOS instead of hiding it behind a mode toggle.
 //   Testimonials — no real, permissioned customer quotes exist yet.
 //   BackedBy — program memberships and logos are unconfirmed.
 //   Features (features-8) — its claims are now stated concretely in
@@ -268,11 +270,11 @@ export default function Home() {
           <RuntimeChoice />
           <HowDeployWorks />
           <CapabilitiesGrid />
-          <IntegrationConstellation />
+          <IntegrationsStrip />
           <WhatsIncluded />
           <ServerSizes />
           <ComparisonTeaser />
-          <PricingElevation />
+          <PricingPreview />
           <KnowledgeBaseFAQ />
           <ConvergenceCTA />
         </main>
