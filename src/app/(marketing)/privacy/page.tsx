@@ -153,6 +153,7 @@ Website: ${BRANDING.domain}`,
 export const metadata = {
   title: "Privacy Policy",
   description: `How ${BRANDING.name} collects, uses, and protects your personal information.`,
+  alternates: { canonical: "/privacy" },
 }
 
 export default function PrivacyPage() {

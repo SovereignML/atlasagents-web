@@ -5,6 +5,7 @@ import { BRANDING } from "@/configs/branding"
 export const metadata: Metadata = {
   title: "Team",
   description: `Meet the team behind ${BRANDING.name}.`,
+  alternates: { canonical: "/team" },
 }
 
 export default function TeamPage() {

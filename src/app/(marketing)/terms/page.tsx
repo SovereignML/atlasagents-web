@@ -185,6 +185,7 @@ Website: ${BRANDING.domain}`,
 export const metadata = {
   title: "Terms of Service",
   description: `Terms and conditions governing your use of the ${BRANDING.name} AI operations platform.`,
+  alternates: { canonical: "/terms" },
 }
 
 export default function TermsPage() {

@@ -1,8 +1,16 @@
+import type { Metadata } from "next"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal, RevealGroup, RevealItem } from "@/components/marketing/motion/reveal"
 import { spring } from "@/lib/motion"
 import { BRANDING } from "@/configs/branding"
+
+export const metadata: Metadata = {
+  title: "Community",
+  description:
+    "Where Atlas Agents users compare notes on agent roles, runtimes, and what they have automated.",
+  alternates: { canonical: "/community" },
+}
 
 export default function CommunityPage() {
   return (

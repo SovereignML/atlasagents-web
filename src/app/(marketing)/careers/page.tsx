@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Careers",
   description:
     "Help us build the platform that lets anyone deploy agentic AI — no code required.",
+  alternates: { canonical: "/careers" },
 }
 
 const values = [

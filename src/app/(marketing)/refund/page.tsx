@@ -100,6 +100,7 @@ Website: ${BRANDING.domain}`,
 export const metadata = {
   title: "Refund Policy",
   description: `How refunds and billing-error corrections are handled on the ${BRANDING.name} AI operations platform.`,
+  alternates: { canonical: "/refund" },
 }
 
 export default function RefundPage() {

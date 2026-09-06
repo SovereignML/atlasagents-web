@@ -12,6 +12,7 @@ const LEGAL_ENTITY = `${BRANDING.legalEntity}, ${BRANDING.jurisdiction}`
 export const metadata = {
   title: "Service Level Agreement",
   description: `${BRANDING.name}'s uptime commitments, response times, and support standards.`,
+  alternates: { canonical: "/sla" },
 }
 
 export default function SLAPage() {

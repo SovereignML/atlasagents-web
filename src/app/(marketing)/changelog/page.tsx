@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import { Reveal, RevealGroup, RevealItem } from "@/components/marketing/motion/reveal"
+
+export const metadata: Metadata = {
+  title: "Changelog",
+  description:
+    "What shipped and when — features, fixes, and breaking changes to the Atlas Agents platform.",
+  alternates: { canonical: "/changelog" },
+}
 
 type Entry = {
   date: string
