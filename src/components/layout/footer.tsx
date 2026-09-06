@@ -27,21 +27,30 @@ function ExternalLinkArrow() {
 
 const footerSections = [
   {
-    title: "Platform",
+    title: "Product",
     links: [
-      { href: "/#agents", label: "Agents" },
-      { href: "/#features", label: "Features" },
-      { href: "/login?deploy=true", label: "Deploy" },
-      { href: "/#pricing", label: "Pricing" },
+      { href: "/agents", label: "Agent roles" },
+      { href: "/runtimes", label: "Runtimes" },
+      { href: "/integrations", label: "Integrations" },
+      { href: "/use-cases", label: "Use cases" },
+      { href: "/pricing", label: "Pricing" },
+    ],
+  },
+  {
+    title: "Learn",
+    links: [
+      { href: "/docs", label: "Docs" },
+      { href: "/comparison", label: "How we compare" },
+      { href: "/changelog", label: "Changelog" },
+      { href: "/docs#faq", label: "FAQ" },
     ],
   },
   {
     title: "Company",
     links: [
-      { href: "/docs", label: "Docs", external: true },
       { href: "/team", label: "Team" },
       { href: "/careers", label: "Careers" },
-      { href: "/docs#faq", label: "Resources" },
+      { href: "/community", label: "Community" },
     ],
   },
   {
@@ -137,7 +146,7 @@ export default function Footer() {
       </div>
 
       {/* Footer links — 4 column layout */}
-      <div className="relative mx-auto flex max-w-[390px] gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:max-w-[976px] lg:gap-6">
+      <div className="relative mx-auto flex max-w-[390px] gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:max-w-[1100px] lg:gap-6">
         {footerSections.map((section) => (
           <div key={section.title} className="flex-1 max-lg:min-w-[40%]">
             <h3 className="mb-6 text-hero/[0.56] lg:mb-4">{section.title}</h3>

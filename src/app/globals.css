@@ -458,6 +458,23 @@ html[data-console-theme="dark"] {
   --border-color: oklch(1 0 0 / 10%);
 }
 
+/* ─── Spec-table row surfaces ─────────────────────────────────── */
+/* A sticky first column must paint an OPAQUE background to occlude the cells
+   scrolling under it. Painting it with its own colour overrode the highlighted
+   row's tint and left a visible seam, so the row carries the background and the
+   sticky cell inherits it — which means these have to be opaque, not alpha. */
+:root {
+  --spec-row: #fbfcfe;
+  --spec-row-hover: #f3f5f9;
+  --spec-row-highlight: #f7fbe8;
+}
+.dark {
+  /* Equivalent of the table's hero/2% wash over the #100d0a page ground. */
+  --spec-row: #16130f;
+  --spec-row-hover: #1c1813;
+  --spec-row-highlight: #1a1a10;
+}
+
 /* ─── Body ─────────────────────────────────────────────────────── */
 body {
   background-color: var(--bg-color);

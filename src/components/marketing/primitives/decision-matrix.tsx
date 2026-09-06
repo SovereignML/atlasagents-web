@@ -130,8 +130,10 @@ export function DecisionMatrix({
             {opt.priceLabel && (
               <div className="mt-3 font-mono text-[13px] text-signal">
                 {opt.priceLabel}
+                {/* Own line — inline, the note ran straight on from the price
+                    and read as one sentence. */}
                 {opt.priceNote && (
-                  <span className="ml-2 text-hero/40">{opt.priceNote}</span>
+                  <span className="mt-0.5 block text-hero/40">{opt.priceNote}</span>
                 )}
               </div>
             )}

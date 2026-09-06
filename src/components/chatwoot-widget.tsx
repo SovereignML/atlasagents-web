@@ -27,12 +27,20 @@ function safeChatwoot(fn: (cw: NonNullable<typeof window.$chatwoot>) => void) {
   }
 }
 
+// Where to resolve the Chatwoot config from. The platform app owns that route;
+// this site is frontend-only and has no API routes of its own, so the endpoint
+// is configurable and BLANK BY DEFAULT — with no value set, the widget never
+// fetches and renders nothing, instead of 404ing against a route that cannot
+// exist here. Point it at the app host (or a same-origin proxy) to enable chat.
+const WIDGET_CONFIG_ENDPOINT =
+  process.env.NEXT_PUBLIC_SUPPORT_WIDGET_ENDPOINT?.trim() ?? ""
+
 /**
  * Loads the Chatwoot live-chat widget and keeps the chat contact in sync with
- * the NextAuth session. Which Chatwoot loads is resolved server-side per team /
- * per custom domain (a white-label tenant's own Chatwoot on their domain, else
- * the platform's) via /api/support/widget-config — so this works for anonymous
- * visitors too. Renders nothing and no-ops when no Chatwoot is configured.
+ * the session. Which Chatwoot loads is resolved server-side per team / per
+ * custom domain (a white-label tenant's own Chatwoot on their domain, else the
+ * platform's) — so it works for anonymous visitors too. Renders nothing and
+ * no-ops when no endpoint is configured, or when it returns no widget.
  */
 export function ChatwootWidget() {
   const { data: session, status } = useSession()
@@ -51,10 +59,12 @@ export function ChatwootWidget() {
   // Resolve which Chatwoot to load (per team / custom domain), then inject the
   // SDK exactly once.
   useEffect(() => {
+    if (!WIDGET_CONFIG_ENDPOINT) return
+
     let cancelled = false
     async function load() {
       try {
-        const res = await fetch("/api/support/widget-config", { credentials: "include" })
+        const res = await fetch(WIDGET_CONFIG_ENDPOINT, { credentials: "include" })
         const data = res.ok ? await res.json() : null
         const widget: WidgetConfig | null = data?.widget ?? null
         if (cancelled || !widget) return

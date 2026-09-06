@@ -47,7 +47,7 @@ export function ConvergenceCTA() {
           className="inline-flex glass rounded-full p-1.5 gap-2"
         >
           <MagneticButton>
-            <Link href="/login?deploy=true" className="btn-green text-sm px-8 py-3.5">
+            <Link href="/register?deploy=true" className="btn-green text-sm px-8 py-3.5">
               Deploy Now
             </Link>
           </MagneticButton>

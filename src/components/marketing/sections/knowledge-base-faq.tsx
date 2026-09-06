@@ -6,30 +6,40 @@ import { easing, spring } from "@/lib/motion";
 import { ChevronDown } from "lucide-react";
 import { BRANDING } from "@/configs/branding"
 
+// Questions someone asks while deciding, not questions that let us restate the
+// pitch. Where the honest answer is "not yet", it says so.
 const faqs = [
   {
-    q: `What is ${BRANDING.name}?`,
-    a: "An AI operations platform. You deploy intelligent agents that handle real work: support, sales, devops, content, research. Your agents run in your own isolated, managed instance, with your configuration and data under your control.",
+    q: "What am I actually buying?",
+    a: `A specialist agent running on a server that is yours alone, plus the panel that operates it — deploy, logs, restart, credentials, backups, custom domain. ${BRANDING.name} provisions the box and installs the runtime; you do not touch infrastructure.`,
   },
   {
-    q: "What are OpenClaw and Hermes?",
-    a: "The two open, general-purpose agent runtimes your agents run on. Both handle the full range of work. Pick whichever fits your model preferences, or run both. Because they're open, you're never locked in: take your agents and your setup with you anytime.",
+    q: "Do I have to bring a server?",
+    a: "No, and most people should not. We provision and manage the machine as part of the plan. Bring your own server is there for people who already have a VPS, a dedicated box, or a homelab machine and want to keep using it — you paste one public key into authorized_keys and we manage the agent over SSH for a flat fee.",
   },
   {
-    q: "What types of agents can I deploy?",
-    a: "Agents run on two open runtimes, OpenClaw and Hermes, across eight categories: Automation, DevOps, Support, Research, Content, Sales, Social Media, and Custom. Each configurable to your exact requirements.",
+    q: "OpenClaw or Hermes — which should I pick?",
+    a: "OpenClaw unless something other than a person needs to talk to the agent. It is the default, runs on every plan including the 1 GB tier, and gives you a browser chat UI. Pick Hermes when you want an OpenAI-compatible API at /v1/* alongside that chat UI, or when you need image generation. Hermes needs at least 2 GB of RAM. You can switch later, though switching re-provisions the box.",
   },
   {
-    q: "Do I need AI expertise?",
-    a: "No. You choose the task, we configure the agent. For complex multi-agent systems, our team designs and deploys custom solutions.",
+    q: "Is my data shared with other customers, or used for training?",
+    a: "No. Every agent runs on its own isolated instance, dedicated to your account. Uploaded documents live in that agent's workspace, database queries are scoped to your account, and instance root passwords are encrypted at rest with a key we hold outside the database.",
   },
   {
-    q: "How does pricing work?",
-    a: "Credit-based. Free tier to start, then Lite ($9/mo), Builder ($19/mo), Operator ($69/mo), Scale ($179/mo), and Enterprise (from $499/mo). Credits cover AI usage, workflows, automations, and vector search.",
+    q: "Can it connect to Gmail, Slack, or our CRM?",
+    a: "Not through native connectors today. That path is Model Context Protocol servers, which are built but not yet wired end to end — the product lists them as coming soon and will not let you enable them. What works now: the agent drives tools through a real browser, and it can run its own self-hosted n8n server to build workflows.",
   },
   {
-    q: "Can you build a custom AI system for my business?",
-    a: "Yes. Book a strategy call. We design, build, and deploy multi-agent systems tailored to your workflows, with dedicated engineering support and production SLAs.",
+    q: "What does a credit actually pay for?",
+    a: "Model usage, workflows, automations, and vector search. Each plan includes an allowance; if you go past it you buy an overage pack rather than being cut off. On bring-your-own-server you can skip credits entirely and use your own provider API key.",
+  },
+  {
+    q: "What happens if I want to leave?",
+    a: "Both runtimes are open. Your agent's settings and behavior can be exported to a JSON file in your own Google Drive at any time, and the runtime underneath is not something we own. There is no proprietary format holding the work hostage.",
+  },
+  {
+    q: "Can I try one before paying?",
+    a: "Yes, without a card. A free demo agent is a real deployment on a real box; it tears itself down after 30 minutes, so treat it as a test drive rather than a free tier.",
   },
 ];
 

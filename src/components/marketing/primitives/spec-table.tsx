@@ -46,7 +46,7 @@ export function SpecTable({
             </caption>
           )}
           <thead>
-            <tr className="border-b border-hero/[0.10]">
+            <tr className="border-b border-hero/[0.10] bg-[var(--spec-row)]">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -54,7 +54,7 @@ export function SpecTable({
                   className={cn(
                     "px-5 py-3.5 font-mono text-[11px] font-normal uppercase tracking-[0.12em] text-hero/50",
                     col.numeric && "text-right",
-                    col.sticky && "sticky left-0 bg-[#141009]",
+                    col.sticky && "sticky left-0 bg-inherit",
                   )}
                 >
                   {col.header}
@@ -67,8 +67,12 @@ export function SpecTable({
               <tr
                 key={row.key}
                 className={cn(
-                  "border-b border-hero/[0.06] last:border-b-0 transition-colors hover:bg-hero/[0.03]",
-                  row.highlight && "bg-signal/[0.05]",
+                  // The row owns its background so a sticky cell can inherit it
+                  // instead of painting over the highlight tint.
+                  "border-b border-hero/[0.06] last:border-b-0 transition-colors",
+                  row.highlight
+                    ? "bg-[var(--spec-row-highlight)]"
+                    : "bg-[var(--spec-row)] hover:bg-[var(--spec-row-hover)]",
                 )}
               >
                 {columns.map((col, i) => (
@@ -80,7 +84,7 @@ export function SpecTable({
                         ? "text-right font-mono tabular-nums text-hero-white"
                         : "text-hero/80",
                       i === 0 && "font-medium text-hero-white",
-                      col.sticky && "sticky left-0 bg-[#141009]",
+                      col.sticky && "sticky left-0 bg-inherit",
                     )}
                   >
                     <span className="inline-flex items-center gap-2">
