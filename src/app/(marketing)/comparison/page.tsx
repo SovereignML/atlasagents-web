@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { ComparisonOriginal } from "@/components/marketing/sections/comparison-original"
 import {
-  PageHero,
   Section,
   SpecTable,
   Yes,
@@ -14,13 +14,13 @@ import { BRANDING } from "@/configs/branding"
 export const metadata: Metadata = {
   title: "How we compare",
   description:
-    "Atlas Agents against a raw VPS and a do-it-yourself setup — what each of the three actually asks of you, and when you should pick the other two.",
+    "Atlas Agents against other AI-employee products, against a raw VPS, and against a do-it-yourself setup — including where we are the wrong answer.",
   alternates: { canonical: "/comparison" },
 }
 
-// Deliberately compared against APPROACHES, not named competitors. Claims about
-// a named product's feature set go stale silently and we cannot verify them from
-// here; claims about what a blank VPS asks of you are simply true.
+// The section above compares against named products. This one compares against
+// the two things you would otherwise DO — rent a blank server, or build it —
+// which is the comparison most visitors are actually running in their head.
 const COLUMNS: SpecColumn[] = [
   { key: "feature", header: "What you need", sticky: true },
   { key: "us", header: BRANDING.name },
@@ -31,80 +31,78 @@ const COLUMNS: SpecColumn[] = [
 const ROWS = [
   {
     key: "provision",
-    feature: "Server provisioned for you",
-    us: <Yes />,
-    vps: <Yes>Blank</Yes>,
-    diy: <No />,
+    cells: { feature: "Server provisioned for you", us: <Yes />, vps: <Yes>Blank</Yes>, diy: <No /> },
   },
   {
     key: "runtime",
-    feature: "Agent runtime installed and configured",
-    us: <Yes />,
-    vps: <No />,
-    diy: <No>You build it</No>,
+    cells: {
+      feature: "Agent runtime installed and configured",
+      us: <Yes />,
+      vps: <No />,
+      diy: <No>You build it</No>,
+    },
   },
   {
     key: "ssl",
-    feature: "Public URL with SSL terminated",
-    us: <Yes />,
-    vps: <No>You configure it</No>,
-    diy: <No>You configure it</No>,
+    cells: {
+      feature: "Public URL with SSL terminated",
+      us: <Yes />,
+      vps: <No>You configure it</No>,
+      diy: <No>You configure it</No>,
+    },
   },
   {
     key: "role",
-    feature: "Role instructions written for you",
-    us: <Yes>8 roles</Yes>,
-    vps: <No />,
-    diy: <No />,
+    cells: { feature: "Role instructions written for you", us: <Yes>8 roles</Yes>, vps: <No />, diy: <No /> },
   },
   {
     key: "tools",
-    feature: "Browser, search, and knowledge base wired up",
-    us: <Yes />,
-    vps: <No />,
-    diy: <No>You integrate each</No>,
+    cells: {
+      feature: "Browser, search and knowledge base wired up",
+      us: <Yes />,
+      vps: <No />,
+      diy: <No>You integrate each</No>,
+    },
   },
   {
     key: "logs",
-    feature: "Live logs and one-click restart",
-    us: <Yes />,
-    vps: <No>SSH and journalctl</No>,
-    diy: <No>You build it</No>,
+    cells: {
+      feature: "Live logs and one-click restart",
+      us: <Yes />,
+      vps: <No>SSH and journalctl</No>,
+      diy: <No>You build it</No>,
+    },
   },
   {
     key: "root",
-    feature: "Full root access to the machine",
-    us: <Yes />,
-    vps: <Yes />,
-    diy: <Yes />,
+    cells: { feature: "Full root access to the machine", us: <Yes />, vps: <Yes />, diy: <Yes /> },
   },
   {
     key: "byo",
-    feature: "Works on hardware you already own",
-    us: <Yes>BYOS</Yes>,
-    vps: <No>It is their box</No>,
-    diy: <Yes />,
+    cells: {
+      feature: "Works on hardware you already own",
+      us: <Yes>BYOS</Yes>,
+      vps: <No>It is their box</No>,
+      diy: <Yes />,
+    },
   },
   {
     key: "backup",
-    feature: "Config backup and restore",
-    us: <Yes>To your Drive</Yes>,
-    vps: <No />,
-    diy: <No>You build it</No>,
-  },
-  {
-    key: "switch",
-    feature: "Swap runtime or model without a rebuild",
-    us: <Yes />,
-    vps: <No />,
-    diy: <No />,
+    cells: {
+      feature: "Config backup and restore",
+      us: <Yes>To your Drive</Yes>,
+      vps: <No />,
+      diy: <No>You build it</No>,
+    },
   },
   {
     key: "leave",
-    feature: "Leave without a migration project",
-    us: <Yes>Open runtimes</Yes>,
-    vps: <Yes />,
-    diy: <Yes />,
+    cells: {
+      feature: "Leave without a migration project",
+      us: <Yes>Open runtimes</Yes>,
+      vps: <Yes />,
+      diy: <Yes />,
+    },
   },
 ]
 
@@ -115,7 +113,7 @@ const POSITIONING = [
   },
   {
     title: "We are not selling you compute",
-    body: "Infrastructure is a commodity and we are not pretending otherwise. On bring-your-own-server we charge nothing for compute at all, because you already have it. What you are paying for is the deployment and the panel.",
+    body: "Infrastructure is a commodity and we are not pretending otherwise. On bring-your-own-server we charge nothing for compute at all, because you already have it. What you pay for is the deployment and the panel.",
   },
   {
     title: "Sometimes you should do it yourself",
@@ -126,23 +124,15 @@ const POSITIONING = [
 export default function ComparisonPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Comparison"
-        title="Three ways to get an agent running"
-        lead="Buy it managed, rent a blank server and do the work, or build the whole thing. Here is what each one actually asks of you — including the cases where we are the wrong answer."
-        primary={{ label: "Deploy an agent free", href: "/register?deploy=true" }}
-        secondary={{ label: "See pricing", href: "/pricing" }}
-      />
+      <ComparisonOriginal />
 
-      <Section id="table" eyebrow="Side by side" title="What each approach asks of you">
-        <SpecTable
-          columns={COLUMNS}
-          rows={ROWS.map((row) => ({
-            key: row.key,
-            cells: { feature: row.feature, us: row.us, vps: row.vps, diy: row.diy },
-          }))}
-          caption="Compared against approaches rather than named products — a claim about a competitor's feature list goes stale the week they ship, and we would not be able to verify it for you anyway."
-        />
+      <Section
+        id="approaches"
+        eyebrow="The other comparison"
+        title="Against a blank server, and against building it"
+        lead="Most visitors are not choosing between us and another product — they are choosing between buying this and doing it themselves. Here is that comparison, including where doing it yourself wins."
+      >
+        <SpecTable columns={COLUMNS} rows={ROWS} />
       </Section>
 
       <Section id="positioning" eyebrow="Where we sit" title="Being clear about the trade">
@@ -165,13 +155,10 @@ export default function ComparisonPage() {
       </Section>
 
       <Section id="next" eyebrow="Next" title="Try it before you weigh it up" width="narrow">
-        <Reveal className="space-y-4 text-[15px] leading-[1.65] text-hero/70">
-          <p>
-            A free demo agent is a real deployment on a real box — the same provisioning
-            path a paid one takes. It tears itself down after 30 minutes, and it needs no
-            card, so it is the cheapest way to find out whether any of the above matters
-            to you.
-          </p>
+        <Reveal className="text-[15px] leading-[1.65] text-hero/70">
+          A free demo agent is a real deployment on a real box — the same provisioning path
+          a paid one takes. It tears itself down after 30 minutes, and it needs no card, so
+          it is the cheapest way to find out whether any of the above matters to you.
         </Reveal>
 
         <Reveal className="mt-8 flex flex-wrap items-center gap-4">

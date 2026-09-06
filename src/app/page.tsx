@@ -19,6 +19,16 @@ import { CapabilitiesGrid } from "@/components/marketing/sections/capabilities-g
 import { WhatsIncluded } from "@/components/marketing/sections/whats-included"
 import { ServerSizes } from "@/components/marketing/sections/server-sizes"
 
+// The original SovereignWeb sections, all of them. This site is a superset of
+// that one: nothing it showed has been dropped, the product sections below are
+// added around them.
+import { AgentWheel } from "@/components/marketing/sections/agent-wheel"
+import { MissionControlPlanner } from "@/components/marketing/sections/mission-control-planner"
+import { CapabilityTimeline } from "@/components/marketing/sections/capability-timeline"
+import { Features } from "@/components/ui/features-8"
+import { CompetitorComparison } from "@/components/marketing/sections/competitor-comparison"
+import { PricingElevation } from "@/components/marketing/sections/pricing-elevation"
+
 // Carried over from the brand site — these still earn their place.
 import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
 import { ComparisonTeaser } from "@/components/marketing/sections/comparison-teaser"
@@ -26,19 +36,10 @@ import { PricingPreview } from "@/components/marketing/sections/pricing-preview"
 import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base-faq"
 import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
 
-// Not rendered, kept in the tree:
-//   AgentWheel, MissionControlPlanner, CapabilityTimeline, AgentConfigurator —
-//     atmosphere the product sections above replace.
-//   CompetitorComparison — names Sintra / WorksBuddy / Lindy and asserts their
-//     feature sets from positioning researched once. ComparisonTeaser replaces
-//     it with the approach-based framing /comparison uses and defends; running
-//     both would have the site contradicting itself.
-//   PricingElevation — superseded by PricingPreview, which shares the section
-//     gutter and links to BYOS instead of hiding it behind a mode toggle.
+// Still not rendered — and neither was rendered on the original site either:
 //   Testimonials — no real, permissioned customer quotes exist yet.
-//   BackedBy — program memberships and logos are unconfirmed.
-//   Features (features-8) — its claims are now stated concretely in
-//     WhatsIncluded and CapabilitiesGrid.
+//   BackedBy — program memberships and official logos are unconfirmed.
+//   AgentConfigurator — was already commented out upstream.
 
 const lineRevealTransition = (delay: number) => ({
   duration: 0.6,
@@ -263,17 +264,26 @@ export default function Home() {
             </motion.div>
           </section>
 
-          {/* ─── Product ─── */}
+          {/* ─── Product ───
+              Original sections and new ones interleaved, ordered as a purchase
+              decision: what it is → which way do I run it → which role → which
+              engine → how it runs → what it reaches → what it costs. */}
+          <AgentWheel />
           <WhatItIs />
           <ChooseHow />
           <AgentRoles />
+          <MissionControlPlanner />
           <RuntimeChoice />
           <HowDeployWorks />
+          <CapabilityTimeline />
           <CapabilitiesGrid />
+          <Features />
           <IntegrationsStrip />
           <WhatsIncluded />
           <ServerSizes />
+          <CompetitorComparison />
           <ComparisonTeaser />
+          <PricingElevation />
           <PricingPreview />
           <KnowledgeBaseFAQ />
           <ConvergenceCTA />

@@ -8,9 +8,11 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import { BRANDING } from "@/configs/branding"
 import { easing, staggerDelay } from "@/lib/motion"
 
-// Real routes, not homepage anchors. The product surface is deep enough now
-// that "Features" pointing at a scroll position was the wrong shape.
+
+// The original four, plus the routes added since. `/#features`, `/#agents` and
+// `/#pricing` still resolve — those homepage sections are all still rendered.
 const NAV_LINKS = [
+  { href: "/#features", label: "Features" },
   { href: "/agents", label: "Agents" },
   { href: "/runtimes", label: "Runtimes" },
   { href: "/integrations", label: "Integrations" },
@@ -42,10 +44,10 @@ export default function Navbar({ isAuthenticated = false }: { isAuthenticated?: 
       <nav
         className="fixed top-5 left-1/2 -translate-x-1/2 w-[95%] max-w-[1100px] h-[64px] z-50 flex items-center rounded-2xl"
         style={{
-          backgroundColor: scrolled ? "rgba(20, 16, 11, 0.88)" : "rgba(20, 16, 11, 0.62)",
+          backgroundColor: scrolled ? "rgba(0, 10, 31, 0.82)" : "rgba(0, 10, 31, 0.6)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(255, 243, 215, 0.09)",
+          border: "1px solid rgba(255, 255, 255, 0.08)",
           boxShadow: scrolled
             ? "0 10px 34px rgba(0, 0, 0, 0.45)"
             : "0 4px 20px rgba(0, 0, 0, 0.3)",

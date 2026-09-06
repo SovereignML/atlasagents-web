@@ -29,19 +29,17 @@ export function ConvergenceCTA() {
 
       <div className="relative z-10 max-w-[700px] mx-auto px-8 text-center">
         <motion.h2
-          style={{ opacity: headlineOpacity, y: headlineY, fontWeight: 400 }}
-          className="mb-5 font-serif text-[clamp(2rem,4.5vw,46px)] leading-[1.06] tracking-[-0.5px] text-hero-white"
-          // Matches the serif display face the rest of the page uses for
-          // headings; the old bold sans read as a different site's CTA.
+          style={{ opacity: headlineOpacity, y: headlineY }}
+          className="text-[clamp(2rem,4.5vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5 leading-tight"
         >
-          The cheapest way to find out<br />is to deploy one.
+          Stop managing tasks.<br />Start deploying agents.
         </motion.h2>
 
         <motion.p
           style={{ opacity: subOpacity }}
           className="text-lg text-text-secondary mb-10 max-w-md mx-auto"
         >
-          A real agent on a real box, in minutes. No card, and it cleans itself up after 30 minutes.
+          OpenClaw or Hermes: pick a runtime and go live in minutes.
         </motion.p>
 
         <motion.div
@@ -49,8 +47,8 @@ export function ConvergenceCTA() {
           className="inline-flex glass rounded-full p-1.5 gap-2"
         >
           <MagneticButton>
-            <Link href="/register?deploy=true" className="btn-green text-sm px-8 py-3.5">
-              Deploy an agent free
+            <Link href="/login?deploy=true" className="btn-green text-sm px-8 py-3.5">
+              Deploy Now
             </Link>
           </MagneticButton>
           <MagneticButton>
@@ -60,7 +58,7 @@ export function ConvergenceCTA() {
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-3.5 text-sm font-semibold text-text-loud rounded-full hover:bg-background-faint transition-colors"
             >
-              Book a demo
+              Book a Demo
             </a>
           </MagneticButton>
         </motion.div>

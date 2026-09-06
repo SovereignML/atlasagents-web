@@ -4,7 +4,7 @@ import { BRANDING } from "@/configs/branding"
 
 export function Features() {
     return (
-        <section className="bg-gray-50 pt-8 pb-16 md:pt-12 md:pb-32 dark:bg-transparent">
+        <section id="features" className="scroll-mt-28 bg-gray-50 pt-8 pb-16 md:pt-12 md:pb-32 dark:bg-transparent">
             <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
                 <div className="relative">
                     <div className="relative z-10 grid grid-cols-6 gap-3">
