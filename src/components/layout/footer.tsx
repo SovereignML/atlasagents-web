@@ -33,6 +33,15 @@ const footerSections = [
       { href: "/runtimes", label: "Runtimes" },
       { href: "/integrations", label: "Integrations" },
       { href: "/use-cases", label: "Use cases" },
+      { href: "/api", label: "API" },
+    ],
+  },
+  {
+    title: "Ways to run",
+    links: [
+      { href: "/managed", label: "Managed hosting" },
+      { href: "/byos", label: "Bring your own server" },
+      { href: "/white-label", label: "White-label" },
       { href: "/pricing", label: "Pricing" },
     ],
   },
@@ -41,8 +50,8 @@ const footerSections = [
     links: [
       { href: "/docs", label: "Docs" },
       { href: "/comparison", label: "How we compare" },
+      { href: "/security", label: "Security" },
       { href: "/changelog", label: "Changelog" },
-      { href: "/docs#faq", label: "FAQ" },
     ],
   },
   {
@@ -146,7 +155,7 @@ export default function Footer() {
       </div>
 
       {/* Footer links — 4 column layout */}
-      <div className="relative mx-auto flex max-w-[390px] gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:max-w-[1100px] lg:gap-6">
+      <div className="relative mx-auto flex max-w-[390px] gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:max-w-[1200px] lg:gap-5">
         {footerSections.map((section) => (
           <div key={section.title} className="flex-1 max-lg:min-w-[40%]">
             <h3 className="mb-6 text-hero/[0.56] lg:mb-4">{section.title}</h3>

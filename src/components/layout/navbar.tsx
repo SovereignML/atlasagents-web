@@ -17,6 +17,8 @@ const NAV_LINKS = [
   { href: "/runtimes", label: "Runtimes" },
   { href: "/integrations", label: "Integrations" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/security", label: "Security" },
+  { href: "/api", label: "API" },
   { href: "/docs", label: "Docs" },
 ]
 

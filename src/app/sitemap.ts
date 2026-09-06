@@ -14,6 +14,11 @@ const PRODUCT_ROUTES = [
   "/runtimes",
   "/integrations",
   "/use-cases",
+  "/managed",
+  "/byos",
+  "/white-label",
+  "/api",
+  "/security",
   "/pricing",
   "/comparison",
 ] as const

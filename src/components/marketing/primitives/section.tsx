@@ -19,6 +19,7 @@ export function Section({
   className,
   align = "left",
   width = "wide",
+  index,
 }: {
   id?: string
   eyebrow?: string
@@ -28,6 +29,10 @@ export function Section({
   className?: string
   align?: "left" | "center"
   width?: "wide" | "narrow"
+  /** Renders a [01]-style ordinal before the eyebrow. Numbering a page makes
+   *  it feel finite and navigable — use it on pages that are a single ordered
+   *  argument, not on ones that mix in unnumbered legacy sections. */
+  index?: number
 }) {
   // `width` sets the measure of the CONTENT, never the position of the section.
   // Every section shares one outer container so the left gutter is constant all
@@ -46,7 +51,16 @@ export function Section({
     >
       {(eyebrow || title || lead) && (
         <Reveal className={cn("mb-10 lg:mb-14", innerWidth, align === "center" && "mx-auto text-center")}>
-          {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
+          {(eyebrow || index !== undefined) && (
+            <span className="flex items-center gap-3">
+              {index !== undefined && (
+                <span className="font-mono text-[11px] tabular-nums tracking-[0.14em] text-signal">
+                  [{String(index).padStart(2, "0")}]
+                </span>
+              )}
+              {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
+            </span>
+          )}
           {title && (
             <h2
               className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white"
