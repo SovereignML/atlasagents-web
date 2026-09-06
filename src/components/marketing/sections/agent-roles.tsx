@@ -8,9 +8,10 @@ import { AGENTS } from "@/configs/agent-marketing"
  * than a curated three — the breadth *is* the pitch, and a visitor scanning for
  * their own job title should find it here without a click.
  */
-export function AgentRoles() {
+export function AgentRoles({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="agents"
       eyebrow="The roles"
       title="Hire the specialist, not the model"

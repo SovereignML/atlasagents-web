@@ -8,9 +8,10 @@ import { RUNTIMES } from "@/configs/runtimes"
  * The second real decision a visitor makes, after which mode they are in. Kept
  * to two cards on the homepage — the full spec table lives on /runtimes.
  */
-export function RuntimeChoice() {
+export function RuntimeChoice({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="runtimes"
       eyebrow="The engine"
       title="Two runtimes. One of them has an API."

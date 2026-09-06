@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import type { ComponentType } from "react"
 import { motion, MotionConfig } from "framer-motion"
 import Navbar from "@/components/layout/navbar"
 import Footer from "@/components/layout/footer"
@@ -150,6 +151,30 @@ const HERO_FACTS = [
   "Free 30-min demo",
 ] as const
 
+// The page as an ordered argument: what it is → which way do I run it → which
+// role → which engine → how it runs → what it reaches → what it costs. Original
+// SovereignWeb sections and new ones interleaved; every one takes an `index`.
+// Components, not elements: the ordinal is derived from position, and holding
+// components keeps this a plain list to reorder rather than JSX needing keys.
+const NUMBERED_SECTIONS: ComponentType<{ index?: number }>[] = [
+  AgentWheel,
+  WhatItIs,
+  ChooseHow,
+  AgentRoles,
+  MissionControlPlanner,
+  RuntimeChoice,
+  HowDeployWorks,
+  CapabilityTimeline,
+  CapabilitiesGrid,
+  Features,
+  IntegrationsStrip,
+  WhatsIncluded,
+  ServerSizes,
+  CompetitorComparison,
+  PricingElevation,
+  KnowledgeBaseFAQ,
+]
+
 export default function Home() {
   return (
     <MotionConfig reducedMotion="user">
@@ -270,25 +295,17 @@ export default function Home() {
           </section>
 
           {/* ─── Product ───
-              Original sections and new ones interleaved, ordered as a purchase
-              decision: what it is → which way do I run it → which role → which
-              engine → how it runs → what it reaches → what it costs. */}
-          <AgentWheel />
-          <WhatItIs />
-          <ChooseHow />
-          <AgentRoles />
-          <MissionControlPlanner />
-          <RuntimeChoice />
-          <HowDeployWorks />
-          <CapabilityTimeline />
-          <CapabilitiesGrid />
-          <Features />
-          <IntegrationsStrip />
-          <WhatsIncluded />
-          <ServerSizes />
-          <CompetitorComparison />
-          <PricingElevation />
-          <KnowledgeBaseFAQ />
+              Numbered from position in NUMBERED_SECTIONS, so reordering the
+              page renumbers it and two sections can never claim the same
+              ordinal. The closing CTA sits outside the sequence — it is the
+              call to action the numbered argument builds toward, not another
+              step in it. */}
+          {NUMBERED_SECTIONS.map((SectionComponent, i) => (
+            // Index as key is correct here: NUMBERED_SECTIONS is a module
+            // constant that never reorders at runtime. Keying on
+            // `SectionComponent.name` would be at the mercy of minification.
+            <SectionComponent key={i} index={i + 1} />
+          ))}
           <ConvergenceCTA />
         </main>
         <Footer />

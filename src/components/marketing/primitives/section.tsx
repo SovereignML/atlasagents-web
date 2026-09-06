@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 import { Reveal } from "@/components/marketing/motion/reveal"
+import { SectionOrdinal } from "./section-ordinal"
 
 /**
  * Shared section shell. Every product section on this site opens the same way —
@@ -53,11 +54,7 @@ export function Section({
         <Reveal className={cn("mb-10 lg:mb-14", innerWidth, align === "center" && "mx-auto text-center")}>
           {(eyebrow || index !== undefined) && (
             <span className="flex items-center gap-3">
-              {index !== undefined && (
-                <span className="font-mono text-[11px] tabular-nums tracking-[0.14em] text-signal">
-                  [{String(index).padStart(2, "0")}]
-                </span>
-              )}
+              <SectionOrdinal index={index} />
               {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
             </span>
           )}

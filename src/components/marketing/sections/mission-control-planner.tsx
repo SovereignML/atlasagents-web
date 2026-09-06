@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { easing } from "@/lib/motion";
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
 // Illustrative figures for the dashboard mockup (not live data).
 const STATUS_AGENTS = [
@@ -37,7 +38,7 @@ const DECISION_LOG = [
 // Static bar heights for the throughput sparkline (percent of track height).
 const SPARK = [38, 52, 44, 61, 49, 73, 58, 81, 66, 92, 74, 88];
 
-export function MissionControlPlanner() {
+export function MissionControlPlanner({ index }: { index?: number } = {}) {
   const reduceMotion = useReducedMotion();
   const [visibleTasks, setVisibleTasks] = useState(TASK_FEED.slice(0, 5));
   const taskIndex = useRef(5);
@@ -88,7 +89,10 @@ export function MissionControlPlanner() {
           transition={{ duration: 0.8, ease: easing.outExpo }}
           className="text-center mb-16"
         >
-          <p className="text-xs text-accent-blue-rest uppercase tracking-[0.2em] mb-4 font-medium">Live Operations</p>
+          <p className="mb-4 flex items-center justify-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-accent-blue-rest">
+            <SectionOrdinal index={index} />
+            Live Operations
+          </p>
           <h2 className="text-[clamp(2rem,4vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-4">
             Your agents are working right now.
           </h2>

@@ -8,8 +8,9 @@ import { ArrowRight } from "lucide-react";
 import { ModeToggle, type PricingMode } from "@/components/marketing/pricing/mode-toggle";
 import { ManagedPlansGrid } from "@/components/marketing/pricing/managed-plans-grid";
 import { ByosPanel } from "@/components/marketing/pricing/byos-panel";
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
-export function PricingElevation() {
+export function PricingElevation({ index }: { index?: number } = {}) {
   const [mode, setMode] = useState<PricingMode>("managed");
 
   return (
@@ -24,7 +25,10 @@ export function PricingElevation() {
           transition={{ duration: 0.8, ease: easing.outExpo }}
           className="text-center mb-10"
         >
-          <p className="text-xs text-accent-blue-rest uppercase tracking-[0.2em] mb-4 font-medium">Pricing</p>
+          <p className="mb-4 flex items-center justify-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-accent-blue-rest">
+            <SectionOrdinal index={index} />
+            Pricing
+          </p>
           <h2 className="text-[clamp(2rem,4vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5">
             Free to start. Built to scale.
           </h2>

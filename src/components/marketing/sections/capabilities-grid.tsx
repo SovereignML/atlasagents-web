@@ -31,9 +31,10 @@ const ICONS: Record<string, LucideIcon> = {
  * labelled, rather than hidden — a visitor who finds out later that MCP isn't
  * wired yet trusts the rest of the page less.
  */
-export function CapabilitiesGrid() {
+export function CapabilitiesGrid({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="capabilities"
       eyebrow="Capabilities"
       title="What it can reach"

@@ -1,11 +1,17 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Shield, Users } from 'lucide-react'
 import { BRANDING } from "@/configs/branding"
+import { SectionOrdinal } from '@/components/marketing/primitives/section-ordinal'
 
-export function Features() {
+export function Features({ index }: { index?: number } = {}) {
     return (
         <section id="features" className="scroll-mt-28 bg-gray-50 pt-8 pb-16 md:pt-12 md:pb-32 dark:bg-transparent">
             <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
+                {index !== undefined && (
+                    <div className="mb-6">
+                        <SectionOrdinal index={index} />
+                    </div>
+                )}
                 <div className="relative">
                     <div className="relative z-10 grid grid-cols-6 gap-3">
                         <Card className="relative col-span-full flex overflow-hidden lg:col-span-2">

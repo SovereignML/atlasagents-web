@@ -35,9 +35,10 @@ export function serverRows(slugs?: readonly string[]) {
  * Homepage teaser: three sizes and a link. The full nine-row table lives on
  * /pricing#sizes, where someone is actually comparing.
  */
-export function ServerSizes() {
+export function ServerSizes({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="sizes"
       eyebrow="The machines"
       title="Published specs, published prices"

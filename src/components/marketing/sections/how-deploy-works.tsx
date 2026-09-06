@@ -34,11 +34,12 @@ const STEPS: readonly Step[] = [
   },
 ] as const
 
-export function HowDeployWorks() {
+export function HowDeployWorks({ index }: { index?: number } = {}) {
   const freeMode = DEPLOYMENT_MODES.find((m) => m.id === "free")
 
   return (
     <Section
+      index={index}
       id="deploy"
       eyebrow="How it works"
       title="Four choices, then it is running"

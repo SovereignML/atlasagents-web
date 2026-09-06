@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { easing, spring } from "@/lib/motion";
 import { ChevronDown } from "lucide-react";
 import { BRANDING } from "@/configs/branding"
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
 // Questions someone asks while deciding, not questions that let us restate the
 // pitch. Where the honest answer is "not yet", it says so.
@@ -115,7 +116,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-export function KnowledgeBaseFAQ() {
+export function KnowledgeBaseFAQ({ index }: { index?: number } = {}) {
   return (
     <section id="faq" className="relative mx-auto max-w-[1180px] scroll-mt-28 px-6 pt-24 pb-8 lg:pb-12">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-faint/30 to-transparent" />
@@ -128,8 +129,11 @@ export function KnowledgeBaseFAQ() {
           transition={{ duration: 0.8, ease: easing.outExpo }}
           className="mb-12"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-hero/[0.10] bg-hero/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-hero/60">
-            Questions
+          <span className="flex items-center gap-3">
+            <SectionOrdinal index={index} />
+            <span className="inline-flex items-center gap-2 rounded-full border border-hero/[0.10] bg-hero/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-hero/60">
+              Questions
+            </span>
           </span>
           <h2 className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white" style={{ fontWeight: 400 }}>
             The things people ask before deploying one

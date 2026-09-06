@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import { easing } from "@/lib/motion";
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
 /*
  * Capabilities section. The division-of-labor "timeline" ledger (two columns
  * with a center seam) was removed; this keeps just the section's framing copy.
  */
 
-export function CapabilityTimeline() {
+export function CapabilityTimeline({ index }: { index?: number } = {}) {
   return (
     <section id="features" className="pt-32 pb-12 overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-8">
@@ -19,7 +20,10 @@ export function CapabilityTimeline() {
           transition={{ duration: 0.8, ease: easing.outExpo }}
           className="text-center"
         >
-          <p className="text-xs text-accent-blue-rest uppercase tracking-[0.2em] mb-4 font-medium">Capabilities</p>
+          <p className="mb-4 flex items-center justify-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-accent-blue-rest">
+            <SectionOrdinal index={index} />
+            Capabilities
+          </p>
           <h2 className="text-[clamp(2rem,4vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5">
             You own every layer. We keep it running.
           </h2>

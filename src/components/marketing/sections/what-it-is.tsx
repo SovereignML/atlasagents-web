@@ -24,9 +24,10 @@ const PILLARS = [
   },
 ] as const
 
-export function WhatItIs() {
+export function WhatItIs({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="what-it-is"
       eyebrow="What you get"
       title="An agent, a server, and the panel that runs both"

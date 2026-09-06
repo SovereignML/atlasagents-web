@@ -6,9 +6,10 @@ import { INCLUDED_EVERYWHERE } from "@/configs/deployment-modes"
  * The long flat list, on purpose. Cards would force this down to six items and
  * the length is the argument — none of this is an upsell tier.
  */
-export function WhatsIncluded() {
+export function WhatsIncluded({ index }: { index?: number } = {}) {
   return (
     <Section
+      index={index}
       id="included"
       eyebrow="On every plan"
       title="None of this is an add-on"

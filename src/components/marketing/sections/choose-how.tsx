@@ -10,9 +10,10 @@ import {
  * purpose: the most common reason someone bounces is not knowing which of these
  * four they are, and no amount of feature copy fixes that.
  */
-export function ChooseHow({ id = "how" }: { id?: string }) {
+export function ChooseHow({ id = "how", index }: { id?: string; index?: number }) {
   return (
     <Section
+      index={index}
       id={id}
       eyebrow="Which one am I?"
       title="Four ways to run an agent. Most people want the second."

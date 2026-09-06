@@ -12,10 +12,11 @@ const total = INTEGRATION_GROUPS.reduce((n, g) => n + g.items.length, 0)
  *
  * The marquee itself stays full-bleed; only the heading sits in the gutter.
  */
-export function IntegrationsStrip() {
+export function IntegrationsStrip({ index }: { index?: number } = {}) {
   return (
     <>
       <Section
+      index={index}
         id="integrations"
         eyebrow="Breadth"
         title="Model-agnostic on purpose"

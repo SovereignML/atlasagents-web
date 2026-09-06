@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { easing } from "@/lib/motion";
 import { BRANDING } from "@/configs/branding";
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
 /*
  * Competitor comparison as a ✓/— matrix (per reference design).
@@ -110,7 +111,7 @@ function CellMark({ value }: { value: Cell }) {
   return <Minus className="mx-auto size-5 text-text-disabled" strokeWidth={2.5} aria-label="No" />;
 }
 
-export function CompetitorComparison() {
+export function CompetitorComparison({ index }: { index?: number } = {}) {
   return (
     <section
       id="comparison"
@@ -126,7 +127,8 @@ export function CompetitorComparison() {
           transition={{ duration: 0.8, ease: easing.outExpo }}
           className="text-center mb-14"
         >
-          <p className="text-xs text-accent-blue-rest uppercase tracking-[0.2em] mb-4 font-medium">
+          <p className="mb-4 flex items-center justify-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-accent-blue-rest">
+            <SectionOrdinal index={index} />
             How we compare
           </p>
           <h2 className="text-[clamp(2rem,4vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5">

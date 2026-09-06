@@ -4,6 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { BRANDING } from "@/configs/branding"
+import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
 
 /*
  * Exact Antimetal integration-wheel port.
@@ -54,7 +55,7 @@ const STEP = 360 / N;
 // shine on each tick, in parallel with the new icon sliding into place.
 const TICK_MS = 2500;
 
-export function AgentWheel() {
+export function AgentWheel({ index }: { index?: number } = {}) {
   const reduceMotion = useReducedMotion();
   const circleRef = useRef<HTMLDivElement>(null);
   const popupTextRef = useRef<HTMLSpanElement>(null);
@@ -186,7 +187,8 @@ export function AgentWheel() {
               <circle cx="18.75" cy="16.5" fill="var(--color-text-muted, #666)" opacity="0.32" r="2.25" />
               <circle cx="6" cy="6" fill="var(--color-text-muted, #666)" opacity="0.32" r="2.25" />
             </svg>
-            <div className="text-[15px] font-medium text-text-loud lg:text-[17px]">
+            <div className="flex items-center gap-2.5 text-[15px] font-medium text-text-loud lg:text-[17px]">
+              <SectionOrdinal index={index} />
               Integrations
             </div>
           </div>
