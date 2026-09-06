@@ -1,0 +1,1245 @@
+/* Fonts used by the ghost-404-page component — must come before local @imports so it stays at the top of the generated CSS */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Signika:wght@400;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* `dark:` utilities follow whichever theme root is in play. Marketing/global
+   theming uses `.dark` on <html> (next-themes). The authenticated console is an
+   INDEPENDENT theme island: its wrapper carries `.console-dark` / `.console-light`
+   (server-rendered from the `console-theme` cookie), and those win over any
+   ancestor `.dark` next-themes/OS puts on <html> — the `:not(.console-light …)`
+   clause shields a light console nested under a dark <html>. */
+@custom-variant dark (&:is(.dark *, .console-dark, .console-dark *):not(.console-light, .console-light *));
+
+/* ─── Custom Fonts (from Landing Page) ────────────────────────── */
+@font-face {
+  font-family: "ABC Diatype Plus";
+  src: url("/fonts/ABCDiatypePlusVariable.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ivar Text";
+  src: url("/fonts/IvarText_Regular.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  src: url("/fonts/Silkscreen_Bold.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ─── Modern Clean Design System ──────────────────────────────── */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "ABC Diatype Plus", var(--font-body), system-ui, sans-serif;
+  --font-mono: "Geist Mono", var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-heading: "ABC Diatype Plus", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Ivar Text", Georgia, "Times New Roman", serif;
+  --font-pixel: "Silkscreen", monospace;
+  --font-signika: "Signika", var(--font-heading), sans-serif;
+  --font-dm-sans: "DM Sans", system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2.5rem;
+
+  /* ─── Antimetal Semantic Tokens (Tailwind classes) ───────────── */
+  --color-background-plain: var(--color-background-plain);
+  --color-background-faint: var(--color-background-faint);
+  --color-background-muted: var(--color-background-muted);
+  --color-background-ghost: var(--color-background-ghost);
+  --color-background-loud: var(--color-background-loud);
+  --color-background-full: var(--color-background-full);
+  --color-text-loud: var(--color-text-loud);
+  --color-text-default: var(--color-text-default);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-disabled: var(--color-text-disabled);
+  --color-text-counter: var(--color-text-counter);
+  --color-text-white: var(--color-text-white);
+  --color-icon-loud: var(--color-icon-loud);
+  --color-icon-default: var(--color-icon-default);
+  --color-icon-muted: var(--color-icon-muted);
+  --color-border-faint: var(--color-border-faint);
+  --color-border-muted: var(--color-border-muted);
+  --color-border-ghost: var(--color-border-ghost);
+  --color-border-loud: var(--color-border-loud);
+  --color-hero: var(--color-hero);
+  --color-hero-white: var(--color-hero-white);
+  --color-card-full: var(--color-card-full);
+  --color-accent-blue-rest: var(--color-accent-blue-rest);
+  --color-accent-blue-hover: var(--color-accent-blue-hover);
+  --color-signal: var(--color-signal);
+}
+
+/* ─── Light Mode (Default) ─────────────────────────────────────── */
+:root {
+  --bg-color: #f8f9fc;
+  --bg-secondary: #f8f9fc;
+  --text-primary: #1b2540;
+  --text-secondary: #1b2540b8;
+  --text-muted: #1b25408f;
+  --accent-color: #015efe;
+  --accent-secondary: #131d8e;
+  --highlight-color: #e0f6ff;
+  --border-color: #0c264d0f;
+  --card-bg: #ffffff;
+  --card-bg-translucent: rgba(255, 255, 255, 0.85);
+  --card-hover: #f8f9fc;
+  --card-hover-translucent: rgba(248, 249, 252, 0.9);
+  --card-shadow: rgba(12, 38, 77, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --glass-glow: rgba(1, 94, 254, 0.08);
+  --glass-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  --nav-bg: rgba(248, 249, 252, 0.92);
+  --nav-border: #0c264d0a;
+  --code-bg: #f0f2f8;
+  --shadow-sm: 0 2px 8px rgba(12, 38, 77, 0.06);
+  --shadow-md: 0 4px 20px rgba(12, 38, 77, 0.08);
+  --shadow-hover: 0 12px 30px rgba(12, 38, 77, 0.12);
+  --btn-secondary-bg: #ffffff;
+
+  --background: #f8f9fc;
+  --foreground: #1b2540;
+  --card: #ffffff;
+  --card-foreground: #1b2540;
+  --popover: #ffffff;
+  --popover-foreground: #1b2540;
+  --primary: #015efe;
+  --primary-foreground: #ffffff;
+  --secondary: #e8ecf4;
+  --secondary-foreground: #1b2540;
+  --muted: #e8ecf4;
+  --muted-foreground: #1b2540a3;
+  --accent: #e8ecf4;
+  --accent-foreground: #1b2540;
+  --destructive: #ef4444;
+  --border: #0c264d0f;
+  --input: #0c264d0f;
+  --ring: #015efe;
+  --chart-1: #015efe;
+  --chart-2: #4dabf7;
+  --chart-3: #e0f6ff;
+  --chart-4: #131d8e;
+  --chart-5: #1b2540;
+  --radius: 0.75rem;
+  --sidebar: #f8f9fc;
+  --sidebar-foreground: #1b2540;
+  --sidebar-primary: #015efe;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8ecf4;
+  --sidebar-accent-foreground: #1b2540;
+  --sidebar-border: #0c264d0a;
+  --sidebar-ring: #015efe;
+
+  /* ─── Antimetal Semantic Color Tokens ──────────────────────────── */
+  --color-background-plain: #f8f9fc;
+  --color-background-faint: #0c264d08;
+  --color-background-muted: #0c264d0d;
+  --color-background-ghost: #0c264d05;
+  --color-background-loud: #0c264d14;
+  --color-background-full: #1b2540;
+  --color-text-loud: #1b2540;
+  --color-text-default: #1b2540a3;
+  --color-text-secondary: #1b2540b8;
+  --color-text-muted: #1b25408f;
+  --color-text-disabled: #1b254052;
+  --color-text-counter: #fafeff;
+  --color-text-white: #fff;
+  --color-icon-loud: #1b2540;
+  --color-icon-default: #1b2540a3;
+  --color-icon-muted: #1b25408f;
+  --color-icon-secondary: #1b2540b8;
+  --color-icon-disabled: #1b254052;
+  --color-border-faint: #0c264d0a;
+  --color-border-muted: #0c264d0f;
+  --color-border-ghost: #0c264d05;
+  --color-border-loud: #1528441a;
+  --color-hero: #e0f6ff;
+  --color-hero-white: #fafeff;
+  --color-card-full: #fff;
+  --color-accent-blue-rest: #015efe;
+  --color-accent-blue-hover: #131d8e;
+  --color-signal: #d0f100;
+}
+
+/* ─── Dark Mode ────────────────────────────────────────────────── */
+.dark {
+  --bg-color: #100d0a;
+  --bg-secondary: #1a1508;
+  --text-primary: #fff3d7;
+  --text-secondary: #fff3d7b8;
+  --text-muted: #fff3d78f;
+  --accent-color: #fff3d7;
+  --accent-secondary: #fff3d7b8;
+  --highlight-color: #fff7e5;
+  --border-color: #fff3d70f;
+  --card-bg: #1c1710;
+  --card-bg-translucent: rgba(28, 23, 16, 0.85);
+  --card-hover: #2a2318;
+  --card-hover-translucent: rgba(42, 35, 24, 0.9);
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --glass-bg: rgba(28, 23, 16, 0.55);
+  --glass-border: #fff3d70f;
+  --glass-glow: rgba(255, 243, 215, 0.06);
+  --glass-inner-shadow: inset 0 1px 1px rgba(255, 243, 215, 0.05);
+  --nav-bg: rgba(16, 13, 10, 0.85);
+  --nav-border: #fff3d705;
+  --code-bg: #151108;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --btn-secondary-bg: #2a2318;
+
+  --background: #100d0a;
+  --foreground: #fff3d7;
+  --card: #1c1710;
+  --card-foreground: #fff3d7;
+  --popover: #1c1710;
+  --popover-foreground: #fff3d7;
+  --primary: #fff3d7;
+  --primary-foreground: #100d0a;
+  --secondary: #1a1508;
+  --secondary-foreground: #fff3d7;
+  --muted: #1a1508;
+  --muted-foreground: #fff3d7a3;
+  --accent: #1a1508;
+  --accent-foreground: #fff3d7;
+  --destructive: #ef4444;
+  --border: #fff3d70f;
+  --input: #fff3d70f;
+  --ring: #fff3d7;
+  --chart-1: #fff3d7;
+  --chart-2: #e0c9a0;
+  --chart-3: #fff7e5;
+  --chart-4: #d4c5a0;
+  --chart-5: #fff3d78f;
+  --radius: 0.75rem;
+  --sidebar: #1a1508;
+  --sidebar-foreground: #fff3d7;
+  --sidebar-primary: #fff3d7;
+  --sidebar-primary-foreground: #100d0a;
+  --sidebar-accent: #1c1710;
+  --sidebar-accent-foreground: #fff3d7;
+  --sidebar-border: #fff3d705;
+  --sidebar-ring: #fff3d7;
+
+  /* ─── Antimetal Semantic Color Tokens (Dark) ───────────────────── */
+  --color-background-plain: #100d0a;
+  --color-background-faint: #fff3d708;
+  --color-background-muted: #fff3d70d;
+  --color-background-ghost: #fff3d705;
+  --color-background-loud: #fff3d714;
+  --color-background-full: #fff3d7;
+  --color-text-loud: #fff3d7;
+  --color-text-default: #fff3d7a3;
+  --color-text-secondary: #fff3d7b8;
+  --color-text-muted: #fff3d78f;
+  --color-text-disabled: #fff3d752;
+  --color-text-counter: #100d0a;
+  --color-text-white: #fff;
+  --color-icon-loud: #fff3d7;
+  --color-icon-default: #fff3d7a3;
+  --color-icon-muted: #fff3d78f;
+  --color-icon-secondary: #fff3d7b8;
+  --color-icon-disabled: #fff3d752;
+  --color-border-faint: #fff3d70a;
+  --color-border-muted: #fff3d70f;
+  --color-border-ghost: #fff3d705;
+  --color-border-loud: #fff3d71a;
+  --color-hero: #fff3d7;
+  --color-hero-white: #fff7e5;
+  --color-card-full: #1c1710;
+  --color-accent-blue-rest: #fff3d7;
+  --color-accent-blue-hover: #fff3d7b8;
+  --color-signal: #d0f100;
+}
+
+/* ─── App Shell Token Scope (Light — derived console) ─────────── */
+/* Applied only inside dashboard/admin/auth layouts via `.app-shell`. */
+/* Marketing/landing pages keep the default :root tokens above.       */
+/* The console is an Atlas Agents "operations" surface: neutral zinc  */
+/* surfaces, hairline borders. LIGHT mode uses the MARKETING brand     */
+/* BLUE (#015efe) as the primary accent (lime fails contrast on white  */
+/* and the brand reads blue on light surfaces); DARK mode keeps the    */
+/* signal lime. Every accent is token-driven (--primary / --brand-bar) */
+/* so the same components render blue on light and lime on dark.       */
+/* The `html[data-console-theme=…]` mirrors carry these same tokens to  */
+/* PORTALED popups (dialogs, dropdowns, selects, tooltips) that mount at */
+/* <body>, outside `.app-shell` — see ConsoleThemePortalSync.            */
+.app-shell,
+html[data-console-theme="light"],
+html[data-console-theme="dark"] {
+  --background: #fafafa;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+
+  /* Marketing brand blue: white ink as a fill, readable as text on white. */
+  --primary: #015efe;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+
+  --border: #09090b14;
+  --input: #09090b1f;
+  --ring: #015efe;
+
+  --sidebar: #fafafa;
+  --sidebar-foreground: #18181b;
+  --sidebar-primary: #015efe;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #09090b14;
+  --sidebar-ring: #015efe;
+
+  /* On-brand chart palette for dashboard data viz. Chart-1 is the brand
+     series (blue on light); status hues (green/cyan/amber/violet) stay. */
+  --chart-1: #015efe;
+  --chart-2: #16a34a;
+  --chart-3: #0891b2;
+  --chart-4: #d97706;
+  --chart-5: #7c3aed;
+
+  /* Brand bar-chart fills (proximity-resolved per theme): blue on light. */
+  --brand-bar: #015efe;
+  --brand-bar-peak: #4dabf7;
+
+  --bg-color: #fafafa;
+  --card-bg: #ffffff;
+  --border-color: #09090b14;
+}
+
+/* ─── Light Console: flat surfaces (no resting drop shadows) ──── */
+/* The light console reads cleaner without card/panel elevation —  */
+/* the heavy resting shadows made every page look muddy. Scoped to  */
+/* `.console-light` so the DARK console keeps its shadows untouched, */
+/* and so PORTALED popups (dropdown/popover/select/sheet, mounted at */
+/* <body> under html[data-console-theme]) keep their own elevation.  */
+.console-light {
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-hover: 0 0 #0000;
+  --card-shadow: transparent;
+}
+/* Native Tailwind elevation utilities used directly on in-page      */
+/* surfaces (cards reference the tokens above; these cover the rest). */
+.console-light
+  :is(.shadow-2xs, .shadow-xs, .shadow-sm, .shadow, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl),
+.console-light
+  :is(.hover\:shadow-sm, .hover\:shadow-md, .hover\:shadow-lg, .hover\:shadow-xl):hover {
+  box-shadow: none;
+}
+/* Arbitrary literal box-shadows (shadow-[…]) and drop-shadow filters used  */
+/* directly on in-page surfaces — e.g. the billing credit-chip glow and     */
+/* status-dot glows — which the token/named-utility rules above don't reach. */
+/* Buttons keep their glossy colored elevation (data-slot=button); portaled  */
+/* popups under html[data-console-theme] sit outside this scope.            */
+.console-light [class*="shadow-["]:not([data-slot="button"]) {
+  box-shadow: none;
+}
+.console-light [class*="drop-shadow"] {
+  filter: none;
+}
+
+/* ─── App Shell Token Scope (Dark — Atlas Agents Console) ─────── */
+/* The reference console palette: near-black canvas, #161618 cards,  */
+/* #1d1d20 inset fields, hairline white-alpha borders, and signal     */
+/* lime (#a3e635) as the primary CTA + active accent. The warm amber  */
+/* marketing palette is preserved outside the shell.                  */
+/* Lime reads as both fill (dark ink) and text/icon here because the  */
+/* canvas is near-black, so --primary is the bright lime directly.    */
+/* Scoped to the wrapper's own `.console-dark` class (not an ancestor  */
+/* `.dark`) so the console theme is independent of next-themes/OS and  */
+/* wins by CSS-variable proximity.                                     */
+/* The `html[data-console-theme="dark"]` mirror applies the same dark    */
+/* overrides to PORTALED popups mounted at <body> — see                  */
+/* ConsoleThemePortalSync. It sits after the base block above so its     */
+/* declarations win for the dark console.                                */
+.app-shell.console-dark,
+html[data-console-theme="dark"] {
+  --background: #0a0a0b;
+  --foreground: #fafafa;
+  --card: #161618;
+  --card-foreground: #fafafa;
+  --popover: #161618;
+  --popover-foreground: #fafafa;
+
+  --primary: #a3e635;
+  --primary-foreground: #15240a;
+
+  --secondary: #1d1d20;
+  --secondary-foreground: #fafafa;
+
+  --muted: #1d1d20;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #1d1d20;
+  --accent-foreground: #fafafa;
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: #a3e635;
+
+  --sidebar: #0c0c0d;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #a3e635;
+  --sidebar-primary-foreground: #15240a;
+  --sidebar-accent: #1d1d20;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: #a3e635;
+
+  /* Console accent set — lime · green · cyan · amber · violet. */
+  --chart-1: #a3e635;
+  --chart-2: #34d27b;
+  --chart-3: #22d3ee;
+  --chart-4: #f59e0b;
+  --chart-5: #a855f7;
+
+  /* Brand bar-chart fills — lime on dark (blue on light, see .app-shell). */
+  --brand-bar: #a3e635;
+  --brand-bar-peak: #bef264;
+
+  --bg-color: #0a0a0b;
+  --card-bg: #161618;
+  --border-color: oklch(1 0 0 / 10%);
+}
+
+/* ─── Body ─────────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────────── */
+/* Use the standard scrollbar properties rather than `::-webkit-scrollbar`.
+   A fixed-width `::-webkit-scrollbar` forces an inset (space-consuming)
+   document scrollbar that defeats `scrollbar-gutter: stable`, which in turn
+   pushes Base UI's modal scroll-lock into its heavy <body>-rewriting path —
+   causing the page to jump when a Select/Dropdown/Dialog opens (worst when
+   scrolled to the bottom). Standard properties keep the gutter stable, so the
+   lock is shift-free. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+html {
+  scrollbar-gutter: stable;
+}
+
+/* ─── Selection ────────────────────────────────────────────────── */
+::selection {
+  background: rgba(1, 94, 254, 0.2);
+  color: inherit;
+}
+
+/* Console uses the signal-lime selection tint instead of marketing blue. */
+.app-shell ::selection {
+  background: rgba(163, 230, 53, 0.28);
+  color: inherit;
+}
+
+/* ─── Console Stat-Tile Glow + Grid ───────────────────────────── */
+/* Reference recipe: a soft radial accent glow in the top-left corner */
+/* plus a faint engineering grid. The glow hue is driven by           */
+/* --stat-glow (defaults to signal lime); set it per-tile to recolor.  */
+/* The grid lines fade out in light mode where a dark hairline grid    */
+/* would read as noise on white cards.                                 */
+.stat-glow {
+  --stat-glow: var(--primary);
+  position: relative;
+  isolation: isolate;
+  background-image:
+    radial-gradient(140px 100px at 14% 0%, color-mix(in oklch, var(--stat-glow) 16%, transparent), transparent),
+    linear-gradient(color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px);
+  background-size: auto, 22px 22px, 22px 22px;
+}
+.dark .stat-glow:not(.console-light *),
+.console-dark .stat-glow {
+  background-image:
+    radial-gradient(140px 100px at 14% 0%, color-mix(in oklch, var(--stat-glow) 22%, transparent), transparent),
+    linear-gradient(oklch(1 0 0 / 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.022) 1px, transparent 1px);
+  background-size: auto, 22px 22px, 22px 22px;
+}
+
+/* ─── Console Hero Surface (theme-adaptive) ───────────────────── */
+/* Self-contained hero background: a lime radial glow (top-right) + a faint  */
+/* 26px engineering grid layered over a base gradient. Resolves correctly in */
+/* both console themes, so it replaces the previous dark-only inline gradient */
+/* that broke light mode. Use the class alone (do NOT also add .stat-glow).   */
+.console-hero {
+  background-color: var(--card);
+  background-image:
+    radial-gradient(420px 200px at 82% -20%, color-mix(in oklch, var(--primary) 14%, transparent), transparent),
+    linear-gradient(color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(135deg, #ffffff, #f4f4f5);
+  background-size: auto, 26px 26px, 26px 26px, auto;
+}
+.dark .console-hero:not(.console-light *),
+.console-dark .console-hero {
+  background-image:
+    radial-gradient(420px 200px at 82% -20%, rgba(163, 230, 53, 0.12), transparent),
+    linear-gradient(oklch(1 0 0 / 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.022) 1px, transparent 1px),
+    linear-gradient(135deg, #16161a, #0f0f12);
+  background-size: auto, 26px 26px, 26px 26px, auto;
+}
+
+/* ─── Antimetal Primary Button (lime accent) ─────────────────── */
+.btn-antimetal {
+  --_lime: rgb(209, 241, 20);
+  --_lime-strong: rgba(209, 241, 20, 0.56);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 40px;
+  font-family: "ABC Diatype Plus", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ffffff00 65%, var(--_lime-strong) 110%),
+    linear-gradient(180deg, var(--_lime-strong) -10%, #ffffff00 45%),
+    var(--_lime);
+  color: #08122d;
+  box-shadow:
+    0 1px 3px rgba(8, 18, 45, 0.18),
+    0 0.5px 0.5px rgba(8, 18, 45, 0.12),
+    0 12px 24px -12px rgba(209, 241, 20, 0.45),
+    inset 0 8px 16px rgba(255, 255, 255, 0.18),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.55),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.06),
+    inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.3s cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.btn-antimetal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(287deg, transparent 60.77%, rgba(255, 255, 255, 0.35) 90.77%),
+    linear-gradient(107deg, transparent 62.4%, rgba(255, 255, 255, 0.18) 91.15%),
+    rgba(255, 255, 255, 0.06);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  padding: 1px;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.btn-antimetal:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 6px rgba(8, 18, 45, 0.22),
+    0 1px 2px rgba(8, 18, 45, 0.14),
+    0 16px 32px -8px rgba(209, 241, 20, 0.55),
+    inset 0 8px 16px rgba(255, 255, 255, 0.22),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.65);
+}
+
+.dark .btn-antimetal {
+  background:
+    linear-gradient(180deg, #ffffff00 65%, var(--_lime-strong) 110%),
+    linear-gradient(180deg, var(--_lime-strong) -10%, #ffffff00 45%),
+    var(--_lime);
+  color: #08122d;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    0 0.5px 0.5px rgba(0, 0, 0, 0.18),
+    0 12px 24px -12px rgba(209, 241, 20, 0.4),
+    inset 0 8px 16px rgba(255, 255, 255, 0.15),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.45),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dark .btn-antimetal::before {
+  background:
+    linear-gradient(287deg, transparent 60.77%, rgba(255, 255, 255, 0.28) 90.77%),
+    linear-gradient(107deg, transparent 62.4%, rgba(255, 255, 255, 0.14) 91.15%),
+    rgba(255, 255, 255, 0.05);
+}
+
+.dark .btn-antimetal:hover {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 16px 32px -8px rgba(209, 241, 20, 0.5),
+    inset 0 8px 16px rgba(255, 255, 255, 0.18),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.5);
+}
+
+/* Legacy alias */
+.btn-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 40px;
+  font-family: "ABC Diatype Plus", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ffffff00 65%, rgba(209, 241, 20, 0.56) 110%),
+    linear-gradient(180deg, rgba(209, 241, 20, 0.56) -10%, #ffffff00 45%),
+    rgba(209, 241, 20);
+  color: #08122d;
+  box-shadow:
+    0 1px 3px rgba(8, 18, 45, 0.18),
+    0 0.5px 0.5px rgba(8, 18, 45, 0.12),
+    0 12px 24px -12px rgba(209, 241, 20, 0.45),
+    inset 0 8px 16px rgba(255, 255, 255, 0.18),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.55),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.06),
+    inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s, box-shadow 0.3s cubic-bezier(0.6, 0.6, 0, 1);
+}
+
+.dark .btn-gradient {
+  background:
+    linear-gradient(180deg, #ffffff00 65%, rgba(209, 241, 20, 0.56) 110%),
+    linear-gradient(180deg, rgba(209, 241, 20, 0.56) -10%, #ffffff00 45%),
+    rgba(209, 241, 20);
+  color: #08122d;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    0 0.5px 0.5px rgba(0, 0, 0, 0.18),
+    0 12px 24px -12px rgba(209, 241, 20, 0.4),
+    inset 0 8px 16px rgba(255, 255, 255, 0.15),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.45),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── Secondary Button (Clean) ─────────────────────────────────── */
+.btn-clean-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  background: transparent;
+  color: var(--color-text-loud);
+  border: 1px solid var(--color-border-muted);
+  border-radius: 40px;
+  font-family: "ABC Diatype Plus", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+  text-decoration: none;
+}
+
+.btn-clean-secondary:hover {
+  background: var(--color-background-faint);
+  border-color: var(--color-border-loud);
+  transform: translateY(-1px);
+}
+
+/* ─── Card Clean ───────────────────────────────────────────────── */
+.card-clean {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, border-color 0.3s;
+}
+
+.card-clean:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ─── Glassmorphism ────────────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inner-shadow), 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.glass-glow {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inner-shadow), 0 0 40px var(--glass-glow), 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.glass-subtle {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inner-shadow);
+}
+
+/* ─── Animations ───────────────────────────────────────────────── */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 0 rgba(1, 94, 254, 0); }
+  50% { opacity: 0.8; box-shadow: 0 0 8px rgba(1, 94, 254, 0.4); }
+}
+
+@keyframes beacon-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes border-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes data-pulse {
+  0% { stroke-dashoffset: 100%; }
+  100% { stroke-dashoffset: 0%; }
+}
+
+.data-pulse-stroke {
+  stroke-dasharray: 8 12;
+  animation: data-pulse 3s linear infinite;
+}
+
+@keyframes mesh-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes type-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes radar-ping {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes neural-pulse {
+  0% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes agent-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ─── Integration Wheel (exact Antimetal port) ─────────────────── */
+
+/* Centre hub pill */
+.int-center-hub {
+  /* Mobile: centred horizontally, fixed top. Widened + raised so the 30%-
+     larger disc still fits and its centre stays on the icon convergence point. */
+  width: 158px;
+  left: calc(50% - 79px);
+  top: 119px;
+  height: 252px;
+}
+@media (min-width: 1024px) {
+  .int-center-hub {
+    width: 352px;
+    left: calc(50% + 97px);
+    height: 196px;
+    top: calc(50% - 98px);
+  }
+}
+
+/* Circle outer wrapper */
+.int-circle-outer {
+  /* Mobile */
+  width: 1148px;
+  height: 1148px;
+  top: -395px;
+  left: calc(50% - 574px);
+  rotate: 90deg;
+  scale: 0.75;
+}
+.int-circle-outer img {
+  rotate: -90deg;
+}
+@media (min-width: 1024px) {
+  .int-circle-outer {
+    rotate: none;
+    scale: none;
+    left: calc(50% - 274px);
+    top: calc(50% - 574px);
+  }
+  .int-circle-outer img {
+    rotate: none;
+  }
+}
+
+/* Inner 630px ring */
+.int-circle-ring {
+  width: 630px;
+  height: 630px;
+  top: calc(50% - 315px);
+  left: 136px;
+}
+
+/* Conic mask on the circle wrapper */
+.int-circle-wrapper {
+  -webkit-mask: conic-gradient(
+    from 270deg,
+    #0000 20.9654deg,
+    #000 108deg 180deg,
+    #000 216deg,
+    #0000 295deg
+  );
+  mask: conic-gradient(
+    from 270deg,
+    #0000 20.9654deg,
+    #000 108deg 180deg,
+    #000 216deg,
+    #0000 295deg
+  );
+}
+@media (max-width: 1023px) {
+  .int-circle-wrapper {
+    -webkit-mask: linear-gradient(90deg, #0000 45%, #000 60%);
+    mask: linear-gradient(90deg, #0000 45%, #000 60%);
+  }
+}
+
+/* Hub shine — a diagonal light sweep across the steady centre logo, retriggered
+   from the wheel tick loop (via the .is-shining class) each time a new icon
+   slides into place. Transform/opacity only. */
+.int-hub-shine {
+  opacity: 0;
+  transform: translateX(-130%) skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+}
+.int-hub-shine.is-shining {
+  animation: int-hub-shine 0.9s ease-out;
+}
+@keyframes int-hub-shine {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(130%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .int-hub-shine.is-shining {
+    animation: none;
+  }
+}
+
+/* ─── Green CTA Buttons (lime accent) ──────────────────────────── */
+.btn-green {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 40px;
+  font-family: "ABC Diatype Plus", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgb(225, 249, 58) 0%, rgba(209, 241, 20, 1) 45%, rgb(185, 212, 14) 100%);
+  color: #08122d;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 0 24px rgba(209, 241, 20, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s, box-shadow 0.3s cubic-bezier(0.6, 0.6, 0, 1);
+}
+.btn-green:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.28),
+    0 0 40px rgba(209, 241, 20, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.btn-green:active {
+  transform: translateY(0);
+}
+
+/* Integration wheel CTA: frosted glass in light mode, lime btn-green in dark */
+.btn-integration-get-started {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border-radius: 40px;
+  font-family: "ABC Diatype Plus", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: rgba(253, 241, 210, 0.96);
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.12) 100%
+    ),
+    rgba(3, 18, 53, 0.88);
+  backdrop-filter: blur(20px) saturate(1.35);
+  -webkit-backdrop-filter: blur(20px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.18),
+    0 2px 14px rgba(3, 18, 53, 0.28);
+  transition:
+    transform 0.2s,
+    box-shadow 0.3s cubic-bezier(0.6, 0.6, 0, 1),
+    background 0.2s,
+    border-color 0.2s;
+}
+.btn-integration-get-started:hover {
+  transform: translateY(-2px);
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.1) 100%
+    ),
+    rgba(3, 18, 53, 0.96);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.26),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.14),
+    0 8px 32px rgba(3, 18, 53, 0.35);
+}
+.btn-integration-get-started:active {
+  transform: translateY(0);
+}
+
+.dark .btn-integration-get-started {
+  color: rgb(3, 18, 53);
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 45%,
+      rgba(3, 18, 53, 0.06) 100%
+    ),
+    rgba(253, 241, 210, 0.88);
+  backdrop-filter: blur(20px) saturate(1.25);
+  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px rgba(3, 18, 53, 0.08),
+    0 2px 16px rgba(0, 0, 0, 0.28);
+}
+.dark .btn-integration-get-started:hover {
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.52) 0%,
+      transparent 45%,
+      rgba(3, 18, 53, 0.05) 100%
+    ),
+    rgba(253, 241, 210, 0.96);
+  border-color: rgba(255, 255, 255, 0.48);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.65),
+    inset 0 -1px 1px rgba(3, 18, 53, 0.06),
+    0 8px 34px rgba(0, 0, 0, 0.38);
+}
+
+/* ─── Premium Footer ──────────────────────────────────────────── */
+.footer-transition-grad {
+  background: linear-gradient(180deg, var(--color-background-plain) 0%, transparent 100%);
+}
+.dark .footer-transition-grad {
+  background: linear-gradient(180deg, var(--color-background-plain) 0%, transparent 100%);
+}
+.footer-background {
+  background: linear-gradient(
+    #d3effb00 42.82%,
+    #d3effb 48.16%,
+    #5fbdf7 53.76%,
+    #0080f8 60%,
+    #003db7 68.05%,
+    #001d8a 74%,
+    #011f58 79.25%,
+    #00042b 87.6%,
+    #000216 97.14%
+  );
+  background: linear-gradient(
+    color(display-p3 0.9725 0.9765 0.9882/0) 42.82%,
+    color(display-p3 0.8479 0.9331 0.979) 48.16%,
+    color(display-p3 0.4672 0.7323 0.9492) 53.76%,
+    color(display-p3 0.1493 0.4928 0.942) 60%,
+    color(display-p3 0.0684 0.2346 0.6916) 68.05%,
+    color(display-p3 0.0189 0.111 0.5211) 74%,
+    color(display-p3 0.0333 0.1181 0.3327) 79.25%,
+    color(display-p3 0 0.0135 0.1615) 87.6%,
+    color(display-p3 0 0.0067 0.08) 97.14%
+  );
+}
+@media (max-width: 992px) {
+  .footer-background {
+    background: linear-gradient(
+      #f8f9fc00 52.46%,
+      #d3effb 56.43%,
+      #5fbdf7 60.6%,
+      #0080f8 65.24%,
+      #003db7 71.22%,
+      #001d8a 75.65%,
+      #011f58 79.56%,
+      #00042b 90.77%,
+      #000216 97.87%
+    );
+  }
+}
+.dark .footer-background {
+  background: linear-gradient(#110d0a00 50%, #140f0abf 72.5%, #070503 100%);
+  background: linear-gradient(
+    color(display-p3 0.0627 0.051 0.0392/0) 50%,
+    color(display-p3 0.0768 0.06 0.0432/.75) 72.5%,
+    color(display-p3 0.0258 0.0194 0.0142) 100%
+  );
+}
+
+/* ─── Footer Drift Animation ──────────────────────────────────── */
+.bg-drift {
+  animation: footer-drift 18s ease-in-out infinite;
+  will-change: transform;
+}
+.bg-drift--reverse {
+  animation-direction: reverse;
+}
+@keyframes footer-drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-3%); }
+}
+
+/* ─── Footer CTA Decorative Lines ─────────────────────────────── */
+.footer-cta-line-1 div {
+  background: linear-gradient(#dbf7ff12 75%, #dbf7ff00 100%);
+}
+.dark .footer-cta-line-1 div {
+  background: linear-gradient(#16110b00 0%, #fff7e312 20% 65%, #16110b00 100%);
+}
+.footer-cta-line-2 div {
+  background: linear-gradient(#dbf7ff12 75%, #dbf7ff00 100%);
+}
+.dark .footer-cta-line-2 div {
+  background: linear-gradient(#16110b00 0%, #fff7e312 37.02% 65%, #16110b00 100%);
+}
+.footer-cta-line-3 div {
+  background: linear-gradient(#dbf7ff12 60%, #dbf7ff00 90%);
+}
+.dark .footer-cta-line-3 div {
+  background: linear-gradient(#16110b00 0%, #fff7e312 37.02% 65%, #16110b00 100%);
+}
+
+/* ─── Hero Background Gradient (exact AntiMetal port) ─────────── */
+.home-hero-background-gradient {
+  background: linear-gradient(
+    #000216 0%,
+    #00042b 6.46%,
+    #011f58 14.37%,
+    #001d8a 20.3%,
+    #003db7 26.69%,
+    #0080f8 34.97%,
+    #5fbdf7 40.43%,
+    #d3effb 45.33%,
+    #f8f9fc00 50%
+  );
+  background: linear-gradient(
+    color(display-p3 0 0.0067 0.08) 0%,
+    color(display-p3 0 0.0135 0.1615) 6.46%,
+    color(display-p3 0.0333 0.1181 0.3327) 14.37%,
+    color(display-p3 0.0189 0.111 0.5211) 20.3%,
+    color(display-p3 0.0684 0.2346 0.6916) 26.69%,
+    color(display-p3 0.1493 0.4928 0.942) 34.97%,
+    color(display-p3 0.4672 0.7323 0.9492) 40.43%,
+    color(display-p3 0.8479 0.9331 0.979) 45.33%,
+    color(display-p3 0.9725 0.9765 0.9882/0) 50%
+  );
+}
+.dark .home-hero-background-gradient {
+  background: linear-gradient(#070503 0%, #140f0abf 27.5%, #110d0a00 50%);
+  background: linear-gradient(
+    color(display-p3 0.0258 0.0194 0.0142) 0%,
+    color(display-p3 0.0768 0.06 0.0432/.75) 27.5%,
+    color(display-p3 0.0627 0.051 0.0392/0) 50%
+  );
+}
+
+/* ─── Hero Grid Animation ─────────────────────────────────────── */
+@keyframes hero-line-reveal {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* ─── Grid Background ─────────────────────────────────────────── */
+.bg-grid-lines {
+  background-image:
+    linear-gradient(var(--text-primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--text-primary) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: clip;
+  }
+  html {
+    font-family: "ABC Diatype Plus", var(--font-body), system-ui, sans-serif;
+    scroll-behavior: auto;
+  }
+
+  /* App-shell typography rhythm — shared spacing & sizing for every
+     dashboard, admin, and auth page so headings don't drift per-page. */
+  .app-shell h1 {
+    @apply text-2xl font-bold tracking-tight text-foreground;
+  }
+  .app-shell h2 {
+    @apply text-lg font-semibold tracking-tight text-foreground;
+  }
+  .app-shell h3 {
+    @apply text-base font-semibold tracking-tight text-foreground;
+  }
+  .app-shell .section-label {
+    @apply text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground;
+  }
+}
+
+/* Accessibility: when the OS requests reduced motion, neutralize CSS keyframe
+   loops (pulse-glow, float, mesh-drift, type-cursor, etc.) and Tailwind
+   animate-* utilities. Complements framer-motion's <MotionConfig
+   reducedMotion="user"> + useReducedMotion guards, which cover JS-driven
+   motion. Together they give the marketing site full reduced-motion coverage. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
