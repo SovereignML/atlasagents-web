@@ -4,38 +4,50 @@
 // stored via /api/consent (cookie + persisted onto the User row when logged in).
 // Marketing consent gates all server-side ad-conversion tracking — until it's
 // granted, src/lib/ads transmits nothing to Meta/Google.
+//
+// NOTE for this repo: the banner is login-gated, and this site has no auth
+// backend (`useSession` is a stub that always reports "unauthenticated") and no
+// API routes, so it can never actually open here and `/api/consent` would 404.
+// It is kept — deliberately, not by oversight — because it is the surface that
+// gates ad tracking, and it must be wired up rather than rediscovered if this
+// site ever grows consent-gated analytics of its own.
 
-import { useEffect, useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import { useSession } from "@/lib/auth-stub"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CONSENT_COOKIE } from "@/lib/consent"
 
 function hasDecision(): boolean {
-  return document.cookie
-    .split("; ")
-    .some((c) => c.startsWith(`${CONSENT_COOKIE}=`))
+  try {
+    return document.cookie
+      .split("; ")
+      .some((c) => c.startsWith(`${CONSENT_COOKIE}=`))
+  } catch {
+    // document unavailable — treat as decided so the banner stays hidden.
+    return true
+  }
 }
 
+// The cookie is external mutable state, so it's read through
+// useSyncExternalStore rather than copied into state from an effect. Nothing
+// emits an event when a cookie changes, so `subscribe` is a no-op — the one
+// change we make ourselves is tracked by the `dismissed` state below.
+const subscribe = () => () => {}
+
+// On the server, report "already decided" so the banner never renders during
+// SSR. That preserves the original no-flash behavior without an effect.
+const getServerSnapshot = () => true
+
 export function ConsentBanner() {
-  // Start hidden to avoid an SSR/CSR flash; reveal only if no decision exists.
-  const [open, setOpen] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [dismissed, setDismissed] = useState(false)
   const { status } = useSession()
 
+  const decided = useSyncExternalStore(subscribe, hasDecision, getServerSnapshot)
+
   // Login-gated: only prompt signed-in users (never on the public landing page).
-  // Re-runs when auth resolves, so the banner appears right after sign-in.
-  useEffect(() => {
-    if (status !== "authenticated") {
-      setOpen(false)
-      return
-    }
-    try {
-      if (!hasDecision()) setOpen(true)
-    } catch {
-      // document unavailable — leave hidden.
-    }
-  }, [status])
+  const open = status === "authenticated" && !decided && !dismissed
 
   async function decide(marketing: boolean) {
     setSaving(true)
@@ -48,7 +60,8 @@ export function ConsentBanner() {
     } catch {
       // Best-effort; the cookie set server-side is the source of truth.
     } finally {
-      setOpen(false)
+      setSaving(false)
+      setDismissed(true)
     }
   }
 
