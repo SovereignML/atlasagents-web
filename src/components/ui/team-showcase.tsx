@@ -103,7 +103,11 @@ export default function TeamShowcase({ members = DEFAULT_MEMBERS }: TeamShowcase
   return (
     <div className="flex flex-col md:flex-row items-start gap-8 md:gap-10 lg:gap-14 select-none w-full max-w-5xl mx-auto py-8 px-4 md:px-6 font-sans">
       {/* ── Left: photo grid ── */}
-      <div className="flex gap-2 md:gap-3 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
+      {/* `flex-shrink-0` is only wanted in the md row layout, where the rail sits
+          beside the portrait and must not collapse. On mobile the parent is a
+          column, so refusing to shrink made the rail push the whole page wider
+          instead of letting its own overflow-x-auto scroll. */}
+      <div className="flex w-full max-w-full gap-2 overflow-x-auto pb-1 md:w-auto md:flex-shrink-0 md:gap-3 md:pb-0">
         {/* Column 1 */}
         <div className="flex flex-col gap-2 md:gap-3">
           {col1.map((member) => (
