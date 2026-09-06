@@ -31,11 +31,16 @@ import { PricingElevation } from "@/components/marketing/sections/pricing-elevat
 
 // Carried over from the brand site — these still earn their place.
 import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
-import { ComparisonTeaser } from "@/components/marketing/sections/comparison-teaser"
-import { PricingPreview } from "@/components/marketing/sections/pricing-preview"
 import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base-faq"
 import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
 
+// Not rendered on the homepage:
+//   ComparisonTeaser, PricingPreview — I built these as replacements for
+//     CompetitorComparison and PricingElevation. Now that both originals are
+//     restored, rendering mine too put the same plan grid on the page twice
+//     and two comparison tables back to back. Their content lives on
+//     /comparison and /pricing, where it is not a duplicate.
+//
 // Still not rendered — and neither was rendered on the original site either:
 //   Testimonials — no real, permissioned customer quotes exist yet.
 //   BackedBy — program memberships and official logos are unconfirmed.
@@ -282,9 +287,7 @@ export default function Home() {
           <WhatsIncluded />
           <ServerSizes />
           <CompetitorComparison />
-          <ComparisonTeaser />
           <PricingElevation />
-          <PricingPreview />
           <KnowledgeBaseFAQ />
           <ConvergenceCTA />
         </main>
