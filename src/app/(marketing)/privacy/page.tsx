@@ -252,7 +252,7 @@ export default function PrivacyPage() {
       {/* Footer links */}
       <div className="mt-16 pt-8 border-t border-[var(--border-color)] flex flex-col sm:flex-row gap-4 justify-between items-start">
         <p className="text-[var(--text-secondary)] text-sm">
-          &copy; {new Date().getFullYear()} {BRANDING.legalEntity}. All rights reserved.
+          &copy; {new Date().getFullYear()} {BRANDING.legalEntity} All rights reserved.
         </p>
         <div className="flex gap-6 text-sm">
           <Link

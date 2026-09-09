@@ -3,13 +3,25 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { easing, spring } from "@/lib/motion";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { BRANDING } from "@/configs/branding"
+import { DEPLOYMENT_MODES } from "@/configs/deployment-modes"
+import { PLANS, formatUsd } from "@/configs/plans"
 import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
+
+// An answer, optionally followed by one link to the page that answers it in
+// full. Only the two decision questions below use `link` — the rest answer
+// themselves in a sentence and a link would just be an exit.
+type Faq = {
+  q: string;
+  a: string;
+  link?: { href: string; label: string };
+};
 
 // Questions someone asks while deciding, not questions that let us restate the
 // pitch. Where the honest answer is "not yet", it says so.
-const faqs = [
+const faqs: Faq[] = [
   {
     q: `What is ${BRANDING.name}?`,
     a: "An AI operations platform. You deploy intelligent agents that handle real work: support, sales, devops, content, research. Your agents run in your own isolated, managed instance, with your configuration and data under your control.",
@@ -39,7 +51,7 @@ const faqs = [
 // Added on top of the original six. These are the questions a visitor asks
 // while deciding rather than while browsing, and the ones where the honest
 // answer is "not yet" — stated plainly instead of omitted.
-const additionalFaqs = [
+const additionalFaqs: Faq[] = [
   {
     q: "Do I have to bring my own server?",
     a: "No, and most people should not. We provision and manage the machine as part of the plan. Bring your own server is there for people who already have a VPS, a dedicated box, or a homelab machine — you paste one public key into authorized_keys and we manage the agent over SSH for a flat fee. No daemon to install.",
@@ -62,8 +74,51 @@ const additionalFaqs = [
   },
 ];
 
+// Inherited from the four-mode decision matrix that used to sit high on the
+// homepage. It was the site's central piece of choice architecture and also the
+// heaviest thing above the fold; as prose in the FAQ it answers the same two
+// questions without asking anyone to read a table to get there. The matrix
+// itself still exists in full on /pricing.
+//
+// Both bodies are BUILT from the configs the product is priced and provisioned
+// from, never retyped — a plan that changes price changes this paragraph too.
+const decisionFaqs: Faq[] = [
+  {
+    q: "There are four ways to run an agent. Which one am I?",
+    a: `The difference is who owns the server and who pays for it. ${DEPLOYMENT_MODES.map(
+      (mode) => `${mode.name} — "${mode.forWho}"`,
+    ).join(" ")} Most people are the second one.`,
+    link: { href: "/pricing#plans", label: "Compare all four side by side" },
+  },
+  {
+    q: "Which plan is best for me?",
+    a: `The self-serve plans all provision the same machine; what changes is the credits you get each month and how many people can share the account. ${PLANS.filter(
+      (plan) => plan.tier !== "byos",
+    )
+      .map((plan) => {
+        // The Enterprise label reads "From $499/mo" — sentence-cased for a
+        // pricing card, wrong mid-sentence here.
+        const price =
+          plan.tier === "enterprise"
+            ? ` (${(plan.enterprisePriceLabel ?? "custom pricing").replace(/^./, (c) => c.toLowerCase())})`
+            : plan.displayPriceMonthly === 0
+              ? "" // "Free (free)" reads as a stutter — the name is the price.
+              : ` (${formatUsd(plan.displayPriceMonthly)}/mo)`;
+        const seats = Number.isFinite(plan.seats)
+          ? `${plan.seats} ${plan.seats === 1 ? "seat" : "seats"}`
+          : "unlimited seats";
+        const credits =
+          plan.creditsPerPeriod > 0
+            ? `${plan.creditsPerPeriod.toLocaleString()} credits`
+            : "custom credits";
+        return `${plan.name}${price} — ${plan.description.toLowerCase()}, ${credits}, ${seats}.`;
+      })
+      .join(" ")} If you are only trying it, start on the free demo — it is a real deployment, and nothing you build on it is wasted.`,
+    link: { href: "/pricing#plans", label: "See what each plan includes" },
+  },
+];
 
-function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
+function FAQItem({ q, a, link, index }: Faq & { index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -108,6 +163,15 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
           >
             <div className="px-5 pb-5">
               <p className="text-sm text-text-secondary leading-relaxed">{a}</p>
+              {link && (
+                <Link
+                  href={link.href}
+                  className="mt-3 inline-flex items-center gap-2 text-[13px] font-medium text-signal hover:underline underline-offset-4"
+                >
+                  {link.label}
+                  <span aria-hidden>→</span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
@@ -141,8 +205,8 @@ export function KnowledgeBaseFAQ({ index }: { index?: number } = {}) {
         </motion.div>
 
         <div className="space-y-3">
-          {[...faqs, ...additionalFaqs].map((faq, i) => (
-            <FAQItem key={faq.q} q={faq.q} a={faq.a} index={i} />
+          {[...faqs, ...additionalFaqs, ...decisionFaqs].map((faq, i) => (
+            <FAQItem key={faq.q} {...faq} index={i} />
           ))}
         </div>
       </div>

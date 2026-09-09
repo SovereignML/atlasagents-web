@@ -9,6 +9,7 @@ import {
   INTEGRATION_NOTES,
 } from "@/configs/integrations"
 import { CAPABILITIES } from "@/configs/capabilities"
+import { IntegrationConstellation } from "@/components/marketing/sections/integration-constellation"
 
 export const metadata: Metadata = {
   title: "Integrations",
@@ -54,6 +55,11 @@ export default function IntegrationsPage() {
         primary={{ label: "Deploy an agent free", href: "/register?deploy=true" }}
         secondary={{ label: "See capabilities", href: "/#capabilities" }}
       />
+
+      {/* The logo marquee, which used to run mid-homepage. This is the page it
+          belongs on: here the glyphs are a preview of the catalog directly
+          below them rather than an unlabelled strip between two arguments. */}
+      <IntegrationConstellation />
 
       <Section
         id="catalog"

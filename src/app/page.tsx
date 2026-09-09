@@ -8,41 +8,42 @@ import Navbar from "@/components/layout/navbar"
 import Footer from "@/components/layout/footer"
 import { SmoothScrollProvider } from "@/components/marketing/motion/smooth-scroll-provider"
 
-// Product sections — the page's spine. Ordered as a decision, not a mood:
-// what it is → which mode am I → which role → which engine → how it runs →
-// what's included → what it costs.
-import { WhatItIs } from "@/components/marketing/sections/what-it-is"
-import { ChooseHow } from "@/components/marketing/sections/choose-how"
+// The twelve sections the page keeps. It used to run sixteen, which read as
+// exhaustive rather than persuasive — the ask was a middle ground, so four came
+// out and the rest were resequenced to open with the thing people actually
+// shop for (a role) and to answer "what do I get" before quoting a price.
 import { AgentRoles } from "@/components/marketing/sections/agent-roles"
-import { RuntimeChoice } from "@/components/marketing/sections/runtime-choice"
+import { Features } from "@/components/ui/features-8"
 import { HowDeployWorks } from "@/components/marketing/sections/how-deploy-works"
-import { CapabilitiesGrid } from "@/components/marketing/sections/capabilities-grid"
+import { MissionControlPlanner } from "@/components/marketing/sections/mission-control-planner"
+import { RuntimeChoice } from "@/components/marketing/sections/runtime-choice"
+import { AgentWheel } from "@/components/marketing/sections/agent-wheel"
+import { CompetitorComparison } from "@/components/marketing/sections/competitor-comparison"
 import { WhatsIncluded } from "@/components/marketing/sections/whats-included"
 import { ServerSizes } from "@/components/marketing/sections/server-sizes"
-
-// The original SovereignWeb sections, all of them. This site is a superset of
-// that one: nothing it showed has been dropped, the product sections below are
-// added around them.
-import { AgentWheel } from "@/components/marketing/sections/agent-wheel"
-import { MissionControlPlanner } from "@/components/marketing/sections/mission-control-planner"
-import { CapabilityTimeline } from "@/components/marketing/sections/capability-timeline"
-import { Features } from "@/components/ui/features-8"
-import { CompetitorComparison } from "@/components/marketing/sections/competitor-comparison"
+import { CapabilitiesGrid } from "@/components/marketing/sections/capabilities-grid"
 import { PricingElevation } from "@/components/marketing/sections/pricing-elevation"
-
-// Carried over from the brand site — these still earn their place.
-import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
 import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base-faq"
-import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
 
-// Not rendered on the homepage:
-//   ComparisonTeaser, PricingPreview — I built these as replacements for
-//     CompetitorComparison and PricingElevation. Now that both originals are
-//     restored, rendering mine too put the same plan grid on the page twice
-//     and two comparison tables back to back. Their content lives on
-//     /comparison and /pricing, where it is not a duplicate.
+// Outside the numbered sequence, at the very bottom.
+import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
+import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
+
+// Retired from the homepage in the simplification pass. None were deleted —
+// each still renders somewhere it is not redundant:
+//   WhatItIs — restated the hero one screen after the hero.
+//   ChooseHow — the four-mode decision matrix. It survives whole on /pricing
+//     (DEPLOYMENT_MODE_MATRIX), and its two questions — "which one am I" and
+//     "which plan is best for me" — are now FAQ entries built from the same
+//     configs, so the answer is still on this page, just not as a table.
+//   CapabilityTimeline — also declared id="features", which meant the navbar's
+//     /#features link landed here instead of on the Features section below it.
+//   IntegrationsStrip — still rendered, but after the closing CTA rather than
+//     mid-argument, and unnumbered. The full catalog lives on /integrations.
 //
-// Still not rendered — and neither was rendered on the original site either:
+// Never rendered here, and not by the site this was rebuilt from either:
+//   ComparisonTeaser, PricingPreview — duplicates of CompetitorComparison and
+//     PricingElevation; their content lives on /comparison and /pricing.
 //   Testimonials — no real, permissioned customer quotes exist yet.
 //   BackedBy — program memberships and official logos are unconfirmed.
 //   AgentConfigurator — was already commented out upstream.
@@ -151,26 +152,29 @@ const HERO_FACTS = [
   "Free 30-min demo",
 ] as const
 
-// The page as an ordered argument: what it is → which way do I run it → which
-// role → which engine → how it runs → what it reaches → what it costs. Original
-// SovereignWeb sections and new ones interleaved; every one takes an `index`.
-// Components, not elements: the ordinal is derived from position, and holding
-// components keeps this a plain list to reorder rather than JSX needing keys.
+// The page as an ordered argument: which role do I want → what it does → how it
+// gets deployed → how I drive it → which engine → the whole catalog of roles →
+// how it compares → what is included → what it runs on → what it can reach →
+// what it costs → what people ask.
+//
+// Everything that justifies the price is stated before the price: capabilities
+// land immediately above PricingElevation on purpose.
+//
+// Components, not elements: the ordinal is derived from position, so reordering
+// this list renumbers the page and two sections can never claim the same
+// ordinal. Holding components keeps it a plain list to reorder rather than JSX
+// needing keys.
 const NUMBERED_SECTIONS: ComponentType<{ index?: number }>[] = [
-  AgentWheel,
-  WhatItIs,
-  ChooseHow,
   AgentRoles,
+  Features,
+  HowDeployWorks,
   MissionControlPlanner,
   RuntimeChoice,
-  HowDeployWorks,
-  CapabilityTimeline,
-  CapabilitiesGrid,
-  Features,
-  IntegrationsStrip,
+  AgentWheel,
+  CompetitorComparison,
   WhatsIncluded,
   ServerSizes,
-  CompetitorComparison,
+  CapabilitiesGrid,
   PricingElevation,
   KnowledgeBaseFAQ,
 ]
@@ -307,6 +311,10 @@ export default function Home() {
             <SectionComponent key={i} index={i + 1} />
           ))}
           <ConvergenceCTA />
+          {/* Breadth, stated after the ask rather than in the middle of it. No
+              `index`: it is not a step in the argument, so SectionOrdinal
+              renders nothing and the numbering above stays 01–12. */}
+          <IntegrationsStrip />
         </main>
         <Footer />
       </SmoothScrollProvider>
