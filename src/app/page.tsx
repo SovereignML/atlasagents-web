@@ -27,7 +27,7 @@ import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base
 
 // Outside the numbered sequence, at the very bottom.
 import { ConvergenceCTA } from "@/components/marketing/sections/convergence-cta"
-import { IntegrationsStrip } from "@/components/marketing/sections/integrations-strip"
+import { IntegrationConstellation } from "@/components/marketing/sections/integration-constellation"
 
 // Retired from the homepage in the simplification pass. None were deleted —
 // each still renders somewhere it is not redundant:
@@ -38,8 +38,11 @@ import { IntegrationsStrip } from "@/components/marketing/sections/integrations-
 //     configs, so the answer is still on this page, just not as a table.
 //   CapabilityTimeline — also declared id="features", which meant the navbar's
 //     /#features link landed here instead of on the Features section below it.
-//   IntegrationsStrip — still rendered, but after the closing CTA rather than
-//     mid-argument, and unnumbered. The full catalog lives on /integrations.
+//   IntegrationsStrip — deleted. It was the "Model-agnostic on purpose" heading
+//     wrapped around the logo marquee. Only the marquee survives, below the
+//     closing CTA; the heading and the "all N models" link were the kind of
+//     mid-page explanation this pass exists to remove. The full catalog, with
+//     its heading, lives on /integrations.
 //
 // Never rendered here, and not by the site this was rebuilt from either:
 //   ComparisonTeaser, PricingPreview — duplicates of CompetitorComparison and
@@ -311,10 +314,11 @@ export default function Home() {
             <SectionComponent key={i} index={i + 1} />
           ))}
           <ConvergenceCTA />
-          {/* Breadth, stated after the ask rather than in the middle of it. No
-              `index`: it is not a step in the argument, so SectionOrdinal
-              renders nothing and the numbering above stays 01–12. */}
-          <IntegrationsStrip />
+          {/* Just the moving glyphs, no heading and no link — breadth shown
+              rather than claimed, sitting above the footer as a sign-off. It
+              carries no `index`: it is not a step in the numbered argument, so
+              the numbering above stays 01–12. */}
+          <IntegrationConstellation />
         </main>
         <Footer />
       </SmoothScrollProvider>
