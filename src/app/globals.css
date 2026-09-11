@@ -1240,3 +1240,20 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* ─── Console preview: in-progress stage marker ───────────────────── */
+/* The deployment-cycle screen's dotted ring turns slowly enough to read as  */
+/* "working" rather than as a spinner demanding attention.                    */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 3.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow {
+    animation: none;
+  }
+}

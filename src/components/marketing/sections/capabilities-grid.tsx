@@ -37,8 +37,9 @@ export function CapabilitiesGrid({ index }: { index?: number } = {}) {
       index={index}
       id="capabilities"
       eyebrow="Capabilities"
+      align="center"
       title="What it can reach"
-      lead="Agents work the way a person would when there is no API — through a browser. Turn each capability on per agent; some are runtime-specific."
+      lead="Agents work the way a person would when there is no API: through a browser. Turn each capability on per agent; some are runtime-specific."
     >
       <RevealGroup className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {CAPABILITIES.map((cap) => {
@@ -77,11 +78,13 @@ export function CapabilitiesGrid({ index }: { index?: number } = {}) {
         })}
       </RevealGroup>
 
-      <p className="mt-8 text-[14px] text-hero/50">
-        Dimmed capabilities are built but not yet wired end to end — the product lists them
+      <p className="mt-8 mx-auto max-w-[640px] text-center text-[14px] text-hero/50">
+        Dimmed capabilities are built but not yet wired end to end. The product lists them
         as coming soon and will not let you enable them.{" "}
         <Link
           href="/integrations"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-signal hover:underline underline-offset-4"
         >
           See everything an agent connects to

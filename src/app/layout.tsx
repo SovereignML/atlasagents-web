@@ -19,14 +19,14 @@ const geistMono = Geist_Mono({
 })
 
 const DESCRIPTION =
-  "Deploy an AI specialist onto a server that is yours. Pick a role, pick a runtime — OpenClaw or Hermes — and Atlas Agents provisions the box, installs the engine, and hands you a working agent at its own URL. Isolated instance, open runtimes, no lock-in. From $9/mo, or run it on hardware you already own."
+  "Deploy an AI specialist onto a server that is yours. Pick a role, pick a runtime (OpenClaw or Hermes), and Atlas Agents provisions the box, installs the engine, and hands you a working agent at its own URL. Isolated instance, open runtimes, no lock-in. From $9/mo, or run it on hardware you already own."
 
 export const metadata: Metadata = {
   // Resolves relative canonical/OG URLs against the deployed origin, and gives
   // the new domain a clean hand-off from the pre-rename one.
   metadataBase: new URL(BRANDING.siteUrl),
   title: {
-    default: `${BRANDING.name} — AI agents on servers you own`,
+    default: BRANDING.name,
     template: `%s | ${BRANDING.name}`,
   },
   description: DESCRIPTION,
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: BRANDING.name,
-    title: `${BRANDING.name} — AI agents on servers you own`,
+    title: `${BRANDING.name}: AI agents on servers you own`,
     description: DESCRIPTION,
     url: BRANDING.siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRANDING.name} — AI agents on servers you own`,
+    title: `${BRANDING.name}: AI agents on servers you own`,
     description: DESCRIPTION,
   },
 }

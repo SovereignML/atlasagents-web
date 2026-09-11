@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { BRANDING } from "@/configs/branding"
-import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
+import { SectionOrdinal, SectionEyebrow } from "@/components/marketing/primitives";
 
 /*
  * Exact Antimetal integration-wheel port.
@@ -179,27 +179,25 @@ export function AgentWheel({ index }: { index?: number } = {}) {
       <div className="relative mx-auto max-w-[976px] pt-[433px] pb-[50px] max-lg:px-[31px] lg:pt-[321px] lg:pb-[369px]">
         {/* ── Text block (left on desktop, centred on mobile) ── */}
         <div className="relative z-10 max-w-[484px] max-lg:mx-auto max-lg:text-center">
-          <div className="mb-4 flex items-center gap-3 max-lg:justify-center lg:mb-6 lg:gap-3">
-            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="6.75" cy="17.25" fill="var(--color-text-loud, #e8e6e3)" r="3.75" />
-              <circle cx="17.25" cy="6" fill="var(--color-text-loud, #e8e6e3)" r="3" />
-              <path d="M10.57 13.16L13.92 9.57" opacity="0.32" stroke="var(--color-text-loud, #e8e6e3)" strokeLinecap="round" strokeWidth="1.5" />
-              <circle cx="18.75" cy="16.5" fill="var(--color-text-muted, #666)" opacity="0.32" r="2.25" />
-              <circle cx="6" cy="6" fill="var(--color-text-muted, #666)" opacity="0.32" r="2.25" />
-            </svg>
-            <div className="flex items-center gap-2.5 text-[15px] font-medium text-text-loud lg:text-[17px]">
-              <SectionOrdinal index={index} />
-              Integrations
-            </div>
+          {/* Same eyebrow pill and serif heading as every other section. The
+              alignment is the one thing that differs: the wheel graphic owns
+              the right half on desktop, so the text stays left there and only
+              centres once the wheel moves above it. */}
+          <div className="mb-4 flex items-center gap-3 max-lg:justify-center lg:mb-6">
+            <SectionOrdinal index={index} />
+            <SectionEyebrow>Integrations</SectionEyebrow>
           </div>
 
-          <h2 className="mb-4 text-text-loud text-[clamp(2rem,4vw,48px)] font-bold tracking-[-1.5px] lg:mb-5">
-          Works with your stack, not against it.
+          <h2
+            className="mb-4 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white lg:mb-5"
+            style={{ fontWeight: 400 }}
+          >
+            Works with your stack, not against it.
           </h2>
 
-          <p className="mb-6 text-base text-text-secondary max-lg:mx-auto max-lg:max-w-[280px] lg:mb-8 lg:text-text-default">
-            <span className="text-text-secondary">Monitoring, code, observability, cloud, </span>
-            CI/CD systems, messaging, and even homegrown tooling.
+          <p className="mb-6 text-[17px] leading-[1.6] text-hero/70 max-lg:mx-auto max-lg:max-w-[280px] lg:mb-8">
+            Monitoring, code, observability, cloud, CI/CD systems, messaging, and
+            even homegrown tooling.
           </p>
 
           <Link

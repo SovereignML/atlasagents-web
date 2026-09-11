@@ -13,9 +13,10 @@ export function RuntimeChoice({ index }: { index?: number } = {}) {
     <Section
       index={index}
       id="runtimes"
-      eyebrow="The engine"
+      eyebrow="The engines"
+      align="center"
       title="Two runtimes. One of them has an API."
-      lead="The runtime is the agent engine we install on your box. OpenClaw is the default and runs anywhere. Pick Hermes when something other than a person needs to talk to the agent."
+      lead="The runtime is the agent engine we install on your box. Hermes is the default and is the one with an API. Pick OpenClaw when you want the lightest possible box, or the smallest plan."
     >
       <RevealGroup className="grid gap-3 lg:grid-cols-2">
         {RUNTIMES.map((runtime) => (
@@ -67,7 +68,7 @@ export function RuntimeChoice({ index }: { index?: number } = {}) {
         ))}
       </RevealGroup>
 
-      <div className="mt-8">
+      <div className="mt-8 text-center">
         <Link
           href="/runtimes"
           className="inline-flex items-center gap-2 text-[14px] font-medium text-signal hover:underline underline-offset-4"

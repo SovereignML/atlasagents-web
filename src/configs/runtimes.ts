@@ -31,11 +31,10 @@ export const RUNTIMES: readonly RuntimeConfig[] = [
     name: "OpenClaw",
     vendor: "Open source",
     logo: "/runtimes/openclaw.svg",
-    tagline: "The default engine. Runs on every plan.",
+    tagline: "The light engine. Runs on every plan.",
     description:
-      "OpenClaw is the runtime every agent gets unless you pick otherwise. Install is config-only — there is no engine CLI to babysit — so it provisions fast and runs comfortably on the smallest box we sell. You get an admin-login chat UI on your agent's own domain.",
+      "OpenClaw is the runtime to pick when the box should stay small. Install is config-only, with no engine CLI to babysit, so it provisions fast and is the only engine that fits the 1 GB plan. You get an admin-login chat UI on your agent's own domain.",
     minRamGb: 1,
-    isDefault: true,
     interfaces: [
       {
         name: "Chat UI",
@@ -67,10 +66,11 @@ export const RUNTIMES: readonly RuntimeConfig[] = [
     name: "Hermes",
     vendor: "Nous Research",
     logo: "/runtimes/hermes.svg",
-    tagline: "A chat UI and a programmable API behind one URL.",
+    tagline: "The default engine. A chat UI and an API behind one URL.",
     description:
       "Hermes is the Nous Research engine, in Python, shipped with a bundled Open WebUI chat interface. What makes it different is the second door: an OpenAI-compatible API at /v1/*, so your own bots and scripts can drive the agent with a bearer token while people use the same agent in a browser.",
     minRamGb: 2,
+    isDefault: true,
     interfaces: [
       {
         name: "Open WebUI chat",

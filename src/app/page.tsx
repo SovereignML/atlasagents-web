@@ -8,19 +8,18 @@ import Navbar from "@/components/layout/navbar"
 import Footer from "@/components/layout/footer"
 import { SmoothScrollProvider } from "@/components/marketing/motion/smooth-scroll-provider"
 
-// The twelve sections the page keeps. It used to run sixteen, which read as
-// exhaustive rather than persuasive — the ask was a middle ground, so four came
-// out and the rest were resequenced to open with the thing people actually
-// shop for (a role) and to answer "what do I get" before quoting a price.
+// The ten sections the page keeps. It used to run sixteen, which read as
+// exhaustive rather than persuasive — four came out in the first pass and two
+// more (HowDeployWorks, ServerSizes) since. The rest were resequenced to open
+// with the thing people actually shop for (a role) and to answer "what do I
+// get" before quoting a price.
 import { AgentRoles } from "@/components/marketing/sections/agent-roles"
 import { Features } from "@/components/ui/features-8"
-import { HowDeployWorks } from "@/components/marketing/sections/how-deploy-works"
-import { MissionControlPlanner } from "@/components/marketing/sections/mission-control-planner"
+import { ConsolePreview } from "@/components/marketing/sections/console-preview"
 import { RuntimeChoice } from "@/components/marketing/sections/runtime-choice"
 import { AgentWheel } from "@/components/marketing/sections/agent-wheel"
 import { CompetitorComparison } from "@/components/marketing/sections/competitor-comparison"
 import { WhatsIncluded } from "@/components/marketing/sections/whats-included"
-import { ServerSizes } from "@/components/marketing/sections/server-sizes"
 import { CapabilitiesGrid } from "@/components/marketing/sections/capabilities-grid"
 import { PricingElevation } from "@/components/marketing/sections/pricing-elevation"
 import { KnowledgeBaseFAQ } from "@/components/marketing/sections/knowledge-base-faq"
@@ -31,6 +30,12 @@ import { IntegrationConstellation } from "@/components/marketing/sections/integr
 
 // Retired from the homepage in the simplification pass. None were deleted —
 // each still renders somewhere it is not redundant:
+//   HowDeployWorks — was section 03, "Four choices, then it is running". The
+//     four ways to run are still answered on this page as an FAQ entry built
+//     from DEPLOYMENT_MODES, and in full on /pricing.
+//   ServerSizes — was section 09, "Published specs, published prices". The same
+//     table lives on /pricing#sizes, which is where someone comparing specs
+//     actually ends up; the component itself already linked there.
 //   WhatItIs — restated the hero one screen after the hero.
 //   ChooseHow — the four-mode decision matrix. It survives whole on /pricing
 //     (DEPLOYMENT_MODE_MATRIX), and its two questions — "which one am I" and
@@ -146,37 +151,25 @@ const heroContentVariants = {
   show: { opacity: 1, y: 0, filter: "blur(0px)" },
 }
 
-// The spec strip under the CTAs. Concrete facts, mono, no adjectives — it is
-// there to answer "what is this, exactly" before the fold ends.
-const HERO_FACTS = [
-  "Your own isolated server",
-  "OpenClaw or Hermes",
-  "From $9/mo",
-  "Free 30-min demo",
-] as const
-
-// The page as an ordered argument: which role do I want → what it does → how it
-// gets deployed → how I drive it → which engine → the whole catalog of roles →
-// how it compares → what is included → what it runs on → what it can reach →
-// what it costs → what people ask.
+// The page as an ordered argument: which role do I want → what it does → how I
+// drive it → which engine → the whole catalog of roles → how it compares →
+// what is included → what it can reach → what it costs → what people ask.
 //
 // Everything that justifies the price is stated before the price: capabilities
 // land immediately above PricingElevation on purpose.
 //
-// Components, not elements: the ordinal is derived from position, so reordering
-// this list renumbers the page and two sections can never claim the same
-// ordinal. Holding components keeps it a plain list to reorder rather than JSX
-// needing keys.
-const NUMBERED_SECTIONS: ComponentType<{ index?: number }>[] = [
+// The sections carry no ordinal markers. Each still ACCEPTS an optional
+// `index` (SectionOrdinal renders null without one), so numbering can be turned
+// back on by passing `index={i + 1}` in the map below — but nothing passes it.
+// Holding components rather than JSX keeps this a plain list to reorder.
+const SECTIONS: ComponentType<{ index?: number }>[] = [
   AgentRoles,
   Features,
-  HowDeployWorks,
-  MissionControlPlanner,
+  ConsolePreview,
   RuntimeChoice,
   AgentWheel,
   CompetitorComparison,
   WhatsIncluded,
-  ServerSizes,
   CapabilitiesGrid,
   PricingElevation,
   KnowledgeBaseFAQ,
@@ -248,10 +241,10 @@ export default function Home() {
                 style={{ fontWeight: 400 }}
               >
                 <span className="block text-[clamp(2rem,5vw,46px)] text-hero-white">
-                  An AI specialist, on a server
+                  Deploy AI agents that
                 </span>
                 <span className="block text-[clamp(2rem,5vw,46px)] text-hero-white">
-                  that belongs to you.
+                  actually work.
                 </span>
               </motion.h1>
 
@@ -260,58 +253,36 @@ export default function Home() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="text-[20px] leading-[26px] tracking-[-0.1px] text-hero-white/80 max-w-[560px] mt-7 mx-auto"
               >
-                Pick a role, pick a runtime, and Atlas Agents provisions the box,
-                installs the engine, and hands you a working agent at its own URL.
-                Isolated instance. Open runtimes. No lock-in.
+                Pick a runtime, OpenClaw or Hermes, then customize your agent and
+                put support, sales, and ops on autopilot. Zero vendor lock-in;
+                your own private instance!
               </motion.p>
 
+              {/* One call to action, centred. The secondary "See pricing" link
+                  was removed deliberately — pricing is still reachable from the
+                  nav, the footer and the numbered pricing section below. */}
               <motion.div
                 variants={heroContentVariants}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex flex-wrap items-center justify-center gap-3"
+                className="mt-8 flex items-center justify-center"
               >
                 <Link href="/register?deploy=true" className="btn-green text-base">
-                  Deploy an agent free
-                </Link>
-                <Link
-                  href="/pricing"
-                  className="inline-flex h-[52px] items-center gap-2 rounded-full border border-hero/[0.14] px-7 text-[16px] font-medium text-hero-white transition-colors hover:border-hero/30 hover:bg-hero/[0.04]"
-                >
-                  See pricing
-                  <span aria-hidden>→</span>
+                  Deploy Your First Agent
                 </Link>
               </motion.div>
-
-              <motion.ul
-                variants={heroContentVariants}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-mono text-[12px] text-hero-white/40"
-              >
-                {HERO_FACTS.map((fact, i) => (
-                  <li key={fact} className="flex items-center gap-3">
-                    {i > 0 && (
-                      <span aria-hidden className="text-hero-white/20">
-                        ·
-                      </span>
-                    )}
-                    {fact}
-                  </li>
-                ))}
-              </motion.ul>
             </motion.div>
           </section>
 
           {/* ─── Product ───
-              Numbered from position in NUMBERED_SECTIONS, so reordering the
-              page renumbers it and two sections can never claim the same
-              ordinal. The closing CTA sits outside the sequence — it is the
-              call to action the numbered argument builds toward, not another
-              step in it. */}
-          {NUMBERED_SECTIONS.map((SectionComponent, i) => (
-            // Index as key is correct here: NUMBERED_SECTIONS is a module
-            // constant that never reorders at runtime. Keying on
-            // `SectionComponent.name` would be at the mercy of minification.
-            <SectionComponent key={i} index={i + 1} />
+              Order comes from SECTIONS, so reordering that list reorders the
+              page. No ordinal markers are rendered. The closing CTA sits
+              outside this list — it is the call to action the argument builds
+              toward, not another step in it. */}
+          {SECTIONS.map((SectionComponent, i) => (
+            // Index as key is correct here: SECTIONS is a module constant that
+            // never reorders at runtime. Keying on `SectionComponent.name`
+            // would be at the mercy of minification.
+            <SectionComponent key={i} />
           ))}
           <ConvergenceCTA />
           {/* Just the moving glyphs, no heading and no link — breadth shown

@@ -12,9 +12,9 @@ import { RevealGroup, RevealItem, Reveal } from "@/components/marketing/motion/r
 import { RUNTIMES, RUNTIME_NOTES, runtimeComparisonRows } from "@/configs/runtimes"
 
 export const metadata: Metadata = {
-  title: "Runtimes — OpenClaw & Hermes",
+  title: "Runtimes: OpenClaw & Hermes",
   description:
-    "The agent engine we install on your box. OpenClaw is the default and runs on every plan; Hermes adds an OpenAI-compatible API at /v1/* alongside a browser chat UI, and needs 2 GB of RAM.",
+    "The agent engine we install on your box. Hermes is the default and adds an OpenAI-compatible API at /v1/* alongside a browser chat UI, on 2 GB and up; OpenClaw is the lighter engine and runs on every plan, including 1 GB.",
   alternates: { canonical: "/runtimes" },
 }
 
@@ -35,10 +35,10 @@ export default function RuntimesPage() {
   return (
     <>
       <PageHero
-        eyebrow="The engine"
+        eyebrow="The engines"
         title="Two runtimes. One of them has an API."
         lead="The runtime is the agent engine installed on your server. It decides how you talk to the agent, what tools it can use, and how much machine it needs. You pick it at deploy, and you can change it later."
-        facts={["OpenClaw — default, any plan", "Hermes — API + chat, 2 GB minimum", "Both open source"]}
+        facts={["Hermes: default, API + chat", "OpenClaw: lighter, any plan", "Both open source"]}
         primary={{ label: "Deploy an agent free", href: "/register?deploy=true" }}
         secondary={{ label: "See plans", href: "/pricing#plans" }}
       />

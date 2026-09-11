@@ -2,113 +2,84 @@
 
 import { motion } from "framer-motion";
 import {
-  Server, Shield, LockOpen, Boxes, KeyRound, Workflow,
-  Rocket, Wallet, Check, Minus,
+  Server, UserCog, BookOpen, KeyRound,
+  HardDriveDownload, PackageOpen, MessagesSquare, Users, Check, Minus,
 } from "lucide-react";
 import { easing } from "@/lib/motion";
 import { BRANDING } from "@/configs/branding";
-import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
+import { SectionHeader } from "@/components/marketing/primitives";
+import {
+  ATLAS,
+  COMPARISON_PRODUCTS,
+  COMPARISON_ROWS,
+  type Cell,
+} from "@/configs/comparison";
 
 /*
  * Competitor comparison as a ✓/— matrix (per reference design).
- * Closed AI-employee SaaS (Sintra, WorksBuddy, Lindy) rent you hosted bots —
- * convenient, but you never own the runtime or data. Self-hosting hands you
- * ownership but no managed runtime, updates, or support. {BRANDING.name} is the
- * ONLY column that is all-✓: the ownership of self-hosting with the convenience
- * of managed SaaS.
  *
- * Competitor cell values reflect publicly available positioning (researched
- * June 2026), as cited in the on-page footnote.
+ * The people who will also run an agent for you — Agent 37, AgentSky, Jurniti —
+ * are agent HOSTS: they hand you an isolated box and a terminal, and you still
+ * pick the harness, fork the template, wire the keys and keep it alive. Two of
+ * them host the same open runtimes we do. So the axis is not "open vs closed",
+ * it is substrate ownership plus how much arrives already done.
+ *
+ * The axes are chosen to favour us. The CELLS are not: every competitor mark
+ * matches what that vendor publicly claims, because a false comparative claim
+ * is a legal problem rather than a tone problem. Atlas's qualified wins carry a
+ * `notes` caption saying which configuration they hold in — usually BYOS.
+ *
+ * Data and sourcing rules live in @/configs/comparison. Competitor cells
+ * reflect publicly available positioning, researched September 2026. That
+ * sourcing is no longer cited on the page — the footnote was removed — so it
+ * lives only in the config comments. Keep it current there.
  */
 
-const ATLAS = "atlas" as const;
+const products = COMPARISON_PRODUCTS;
+const rows = COMPARISON_ROWS;
 
-const products = [
-  { key: ATLAS, name: BRANDING.name, tag: "AI operations layer" },
-  { key: "sintra", name: "Sintra", tag: "Rented AI employees" },
-  { key: "worksbuddy", name: "WorksBuddy", tag: "Closed assistant suite" },
-  { key: "lindy", name: "Lindy", tag: "Hosted agent builder" },
-  { key: "selfhost", name: "Self-hosting", tag: "DIY open source" },
-] as const;
-
-type ProductKey = (typeof products)[number]["key"];
-
-/** true = supported, false = not, "partial" = limited (renders as — with a note) */
-type Cell = true | false | "partial";
-
-type Row = {
-  feature: string;
-  icon: typeof Server;
-  badge?: string;
-  values: Record<ProductKey, Cell>;
+/** Row id → icon. Kept here because configs in this repo stay icon-free. */
+const ICONS: Record<string, typeof Server> = {
+  "chat-ui": MessagesSquare,
+  "own-hardware": Server,
+  roles: UserCog,
+  "knowledge-base": BookOpen,
+  "included-tools": PackageOpen,
+  "byo-keys": KeyRound,
+  "own-backups": HardDriveDownload,
+  "team-seats": Users,
 };
 
-const rows: Row[] = [
-  {
-    feature: "Runs on your instance",
-    icon: Server,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: false, selfhost: true },
-  },
-  {
-    feature: "You own & isolate all data",
-    icon: Shield,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: false, selfhost: true },
-  },
-  {
-    feature: "No vendor lock-in",
-    icon: LockOpen,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: false, selfhost: true },
-  },
-  {
-    feature: "Open agent runtime",
-    icon: Boxes,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: false, selfhost: true },
-  },
-  {
-    feature: "Bring your own AI keys",
-    icon: KeyRound,
-    badge: "new",
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: "partial", selfhost: true },
-  },
-  {
-    feature: "Native multi-agent orchestration",
-    icon: Workflow,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: "partial", selfhost: false },
-  },
-  {
-    feature: "Managed deploy in minutes",
-    icon: Rocket,
-    values: { atlas: true, sintra: true, worksbuddy: true, lindy: true, selfhost: false },
-  },
-  {
-    feature: "No per-action credit metering",
-    icon: Wallet,
-    values: { atlas: true, sintra: false, worksbuddy: false, lindy: false, selfhost: false },
-  },
-];
-
-const cost: Record<ProductKey, string> = {
-  atlas: "From $9/mo",
-  sintra: "~$97/mo",
-  worksbuddy: "~$99/mo",
-  lindy: "~$20/mo",
-  selfhost: "Infra + your time",
-};
-
-/** A single matrix cell: a bold accent ✓ for supported (blue in light, lime in dark), a muted — for absent. */
-function CellMark({ value }: { value: Cell }) {
-  if (value === true) {
-    return <Check className="mx-auto size-5 text-accent-blue-rest dark:text-signal" strokeWidth={3} aria-label="Yes" />;
-  }
-  if (value === "partial") {
-    return (
-      <span className="flex flex-col items-center gap-0.5">
-        <Minus className="size-5 text-text-disabled" strokeWidth={2.5} aria-label="Limited" />
-        <span className="text-[10px] leading-none text-text-disabled">limited</span>
-      </span>
+/**
+ * A single matrix cell: a bold accent ✓ for supported (blue in light, lime in
+ * dark), a muted — for absent. An optional note scopes the claim underneath —
+ * on any value, since a qualified yes ("on BYOS") needs it as much as a
+ * qualified no.
+ */
+function CellMark({ value, note }: { value: Cell; note?: string }) {
+  const mark =
+    value === true ? (
+      <Check className="size-5 text-accent-blue-rest dark:text-signal" strokeWidth={3} aria-label="Yes" />
+    ) : (
+      <Minus
+        className="size-5 text-text-disabled"
+        strokeWidth={2.5}
+        aria-label={value === "partial" ? "Limited" : "No"}
+      />
     );
+
+  const caption = note ?? (value === "partial" ? "limited" : undefined);
+
+  if (!caption) {
+    return <span className="flex justify-center">{mark}</span>;
   }
-  return <Minus className="mx-auto size-5 text-text-disabled" strokeWidth={2.5} aria-label="No" />;
+
+  return (
+    <span className="flex flex-col items-center gap-0.5">
+      {mark}
+      <span className="text-[10px] leading-tight text-text-disabled">{caption}</span>
+    </span>
+  );
 }
 
 export function CompetitorComparison({ index }: { index?: number } = {}) {
@@ -120,26 +91,20 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
     >
       <div className="max-w-[1150px] mx-auto px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 48, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.8, ease: easing.outExpo }}
-          className="text-center mb-14"
-        >
-          <p className="mb-4 flex items-center justify-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-accent-blue-rest">
-            <SectionOrdinal index={index} />
-            How we compare
-          </p>
-          <h2 className="text-[clamp(2rem,4vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5">
-            They rent you bots. You own the whole stack.
-          </h2>
-          <p className="text-text-secondary text-lg max-w-[560px] mx-auto">
-            SaaS bots rent you seats. Self-hosting hands you a second job.
-            {" "}{BRANDING.name} gives you both: the ownership of self-hosting with a
-            fully managed runtime.
-          </p>
-        </motion.div>
+        <SectionHeader
+          index={index}
+          align="center"
+          eyebrow="How we compare"
+          title="Everyone else sells you a server. We sell you the work."
+          lead={
+            <>
+              Every other option hands you an empty box and a terminal, then you
+              pick the harness, fork the template, wire the keys, and babysit it
+              forever. {BRANDING.name} hands your team a working agent on day one,
+              for less than the price of the box.
+            </>
+          }
+        />
 
         {/* Matrix — horizontally scrollable on small screens */}
         <motion.div
@@ -147,12 +112,19 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8, ease: easing.outExpo }}
-          className="-mx-8 overflow-x-auto px-8 md:mx-0 md:overflow-visible md:px-0"
+          className="-mx-8 overflow-x-auto px-8 md:mx-0 md:overflow-visible md:px-0 max-md:mx-0 max-md:overflow-visible max-md:px-0"
         >
-          <table className="w-full min-w-[720px] border-separate border-spacing-0 text-left">
+          {/* Phones get the Atlas Agents column only: five products in a 720px
+              table meant a sideways scroll to read anything, and the competitor
+              columns are the first thing to lose. The cells are hidden in CSS
+              rather than filtered in JS so the markup stays one server-rendered
+              table, and the full matrix is still on /comparison.
+              Only the first two <col>s apply on mobile; the rest are ignored
+              once their cells are display:none. */}
+          <table className="w-full border-separate border-spacing-0 text-left md:min-w-[720px]">
             <colgroup>
-              <col className="w-[26%]" />
-              <col className="w-[14.8%]" />
+              <col className="w-[26%] max-md:w-[62%]" />
+              <col className="w-[14.8%] max-md:w-[38%]" />
               <col className="w-[14.8%]" />
               <col className="w-[14.8%]" />
               <col className="w-[14.8%]" />
@@ -166,9 +138,11 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
                   return (
                     <th
                       key={p.key}
-                      className="align-bottom p-0 text-center"
+                      className={
+                        "align-bottom p-0 text-center " + (owned ? "" : "max-md:hidden")
+                      }
                     >
-                      <div className="rounded-t-xl px-3 pb-5 pt-6">
+                      <div className="px-3 pb-5 pt-6">
                         <p
                           className={
                             "text-base font-semibold tracking-[-0.5px] " +
@@ -176,9 +150,6 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
                           }
                         >
                           {p.name}
-                        </p>
-                        <p className={"text-xs " + (owned ? "text-text-muted" : "text-text-disabled")}>
-                          {p.tag}
                         </p>
                       </div>
                     </th>
@@ -188,16 +159,16 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
             </thead>
             <tbody>
               {rows.map((row) => {
-                const Icon = row.icon;
+                const Icon = ICONS[row.id];
                 return (
-                  <tr key={row.feature} className="group">
+                  <tr key={row.id} className="group">
                     {/* Feature label */}
                     <th
                       scope="row"
                       className="sticky left-0 z-10 border-b border-border-muted bg-background py-4 pl-7 pr-6 text-left align-middle font-normal transition-colors group-hover:rounded-l-lg group-hover:border-transparent group-hover:bg-text-loud/[0.04] [tr:has(+tr:hover)_&]:border-transparent"
                     >
                       <span className="flex items-center gap-2.5">
-                        <Icon className="size-4 shrink-0 text-text-muted" />
+                        {Icon && <Icon className="size-4 shrink-0 text-text-muted" />}
                         <span className="text-sm font-medium text-text-loud">
                           {row.feature}
                         </span>
@@ -209,17 +180,25 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
                       </span>
                     </th>
 
-                    {products.map((p, i) => (
-                      <td
-                        key={p.key}
-                        className={
-                          "border-b border-border-muted py-4 pl-3 text-center align-middle transition-colors group-hover:border-transparent group-hover:bg-text-loud/[0.04] [tr:has(+tr:hover)_&]:border-transparent " +
-                          (i === products.length - 1 ? "pr-6 group-hover:rounded-r-lg" : "pr-3")
-                        }
-                      >
-                        <CellMark value={row.values[p.key]} />
-                      </td>
-                    ))}
+                    {products.map((p, i) => {
+                      const owned = p.key === ATLAS;
+                      return (
+                        <td
+                          key={p.key}
+                          className={
+                            "border-b border-border-muted py-4 pl-3 text-center align-middle transition-colors group-hover:border-transparent group-hover:bg-text-loud/[0.04] [tr:has(+tr:hover)_&]:border-transparent " +
+                            (i === products.length - 1 ? "pr-6 group-hover:rounded-r-lg" : "pr-3") +
+                            // Atlas is the last cell standing on a phone, so it
+                            // takes the closing padding and corner there.
+                            (owned
+                              ? " max-md:pr-6 max-md:group-hover:rounded-r-lg"
+                              : " max-md:hidden")
+                          }
+                        >
+                          <CellMark value={row.values[p.key]} note={row.notes?.[p.key]} />
+                        </td>
+                      );
+                    })}
                   </tr>
                 );
               })}
@@ -239,18 +218,28 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
                       key={p.key}
                       className={
                         "py-5 pl-3 text-center align-middle transition-colors group-hover:bg-text-loud/[0.04] " +
-                        (i === products.length - 1 ? "rounded-br-xl pr-6 group-hover:rounded-r-lg" : "pr-3")
+                        (i === products.length - 1 ? "rounded-br-xl pr-6 group-hover:rounded-r-lg" : "pr-3") +
+                        (owned
+                          ? " max-md:rounded-br-xl max-md:pr-6 max-md:group-hover:rounded-r-lg"
+                          : " max-md:hidden")
                       }
                     >
-                      <span
-                        className={
-                          "text-sm " +
-                          (owned
-                            ? "font-bold text-accent-blue-rest dark:text-signal"
-                            : "font-medium text-text-muted")
-                        }
-                      >
-                        {cost[p.key]}
+                      <span className="flex flex-col items-center gap-0.5">
+                        <span
+                          className={
+                            "whitespace-nowrap text-sm " +
+                            (owned
+                              ? "font-bold text-accent-blue-rest dark:text-signal"
+                              : "font-medium text-text-muted")
+                          }
+                        >
+                          {p.cost}
+                        </span>
+                        {p.costNote && (
+                          <span className="text-[10px] leading-tight text-text-disabled">
+                            {p.costNote}
+                          </span>
+                        )}
                       </span>
                     </td>
                   );
@@ -260,13 +249,6 @@ export function CompetitorComparison({ index }: { index?: number } = {}) {
           </table>
         </motion.div>
 
-        {/* Footnote */}
-        <div className="mt-10 flex flex-col items-center">
-          <p className="text-center text-xs text-text-muted max-w-[480px]">
-            Comparison reflects publicly available positioning, June 2026.
-            Competitor names are trademarks of their respective owners.
-          </p>
-        </div>
       </div>
     </section>
   );

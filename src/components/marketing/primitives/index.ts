@@ -1,7 +1,7 @@
 // The density kit — the layout vocabulary the product pages are built from.
 // Everything here is presentational and reads its content from src/configs.
 
-export { Section, SectionEyebrow, Hairline } from "./section"
+export { Section, SectionHeader, SectionEyebrow, Hairline } from "./section"
 export { SectionOrdinal } from "./section-ordinal"
 export { SpecTable, Yes, No } from "./spec-table"
 export type { SpecColumn, SpecRow } from "./spec-table"

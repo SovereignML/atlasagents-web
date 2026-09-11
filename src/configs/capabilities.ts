@@ -29,7 +29,7 @@ export const CAPABILITIES: readonly Capability[] = [
     name: "Web browser",
     icon: "Globe",
     description:
-      "The agent opens real pages, navigates, clicks, and reads what is actually there — not a cached snapshot of it.",
+      "The agent opens real pages, navigates, clicks, and reads what is actually there, not a cached snapshot of it.",
     status: "live",
     runtimes: ["openclaw", "hermes"],
   },
@@ -85,7 +85,7 @@ export const CAPABILITIES: readonly Capability[] = [
     name: "MCP servers",
     icon: "Plug",
     description:
-      "Attach Model Context Protocol servers — Gmail, Slack, and your own tools — to extend what the agent can reach.",
+      "Attach Model Context Protocol servers for Gmail, Slack, and your own tools, extending what the agent can reach.",
     status: "coming-soon",
     runtimes: ["openclaw", "hermes"],
   },

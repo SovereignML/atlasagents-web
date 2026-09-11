@@ -21,7 +21,13 @@ export function ConvergenceCTA() {
   const ctaY = useTransform(scrollYProgress, [0.35, 0.6], [20, 0]);
 
   return (
-    <section ref={sectionRef} className="relative py-40 overflow-hidden">
+    // overflow-x-clip, not overflow-hidden. The bottom glow below sits at
+    // `bottom-0` with a 100px blur, so clipping the y-axis sliced its lower
+    // half off and left a hard horizontal edge along this section's bottom —
+    // the top line of the two that bounded the marquee. The x-axis still needs
+    // containing: those glows are 600px/400px wide and centred, so they would
+    // overflow a narrow viewport. FloatingDots clips itself.
+    <section ref={sectionRef} className="relative py-40 overflow-x-clip">
       <FloatingDots count={40} converge />
 
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-accent-blue-rest opacity-[0.04] blur-[100px] rounded-full pointer-events-none" />
@@ -29,15 +35,17 @@ export function ConvergenceCTA() {
 
       <div className="relative z-10 max-w-[700px] mx-auto px-8 text-center">
         <motion.h2
-          style={{ opacity: headlineOpacity, y: headlineY }}
-          className="text-[clamp(2rem,4.5vw,48px)] font-bold text-text-loud tracking-[-1.5px] mb-5 leading-tight"
+          style={{ opacity: headlineOpacity, y: headlineY, fontWeight: 400 }}
+          // Same serif treatment as every section heading, one step larger —
+          // this is the page's closing beat, not another section.
+          className="mb-5 font-serif text-[clamp(2rem,4.2vw,3rem)] leading-[1.08] tracking-[-0.4px] text-hero-white"
         >
           Stop managing tasks.<br />Start deploying agents.
         </motion.h2>
 
         <motion.p
           style={{ opacity: subOpacity }}
-          className="text-lg text-text-secondary mb-10 max-w-md mx-auto"
+          className="mx-auto mb-10 max-w-md text-[17px] leading-[1.6] text-hero/70"
         >
           OpenClaw or Hermes: pick a runtime and go live in minutes.
         </motion.p>

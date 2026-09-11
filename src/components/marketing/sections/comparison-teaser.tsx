@@ -8,8 +8,12 @@ import { BRANDING } from "@/configs/branding"
  * a named competitor's feature list goes stale the week they ship, and we cannot
  * verify it on the reader's behalf.
  *
- * (The older `competitor-comparison.tsx` does name products. It is kept in the
- * tree but not rendered — running both would have the site arguing with itself.)
+ * (`competitor-comparison.tsx` does name products, and IS rendered — on the
+ * homepage, via NUMBERED_SECTIONS in src/app/page.tsx. This teaser is the one
+ * kept in the tree unrendered; running both would have the site arguing with
+ * itself. The two stances are reconciled by scope: the named matrix compares
+ * against agent hosts on the homepage, the full /comparison page compares
+ * against approaches.)
  */
 const COLUMNS: SpecColumn[] = [
   { key: "feature", header: "What you need", sticky: true },

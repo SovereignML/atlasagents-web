@@ -1,17 +1,16 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Shield, Users } from 'lucide-react'
 import { BRANDING } from "@/configs/branding"
-import { SectionOrdinal } from '@/components/marketing/primitives/section-ordinal'
+import { SectionHeader } from '@/components/marketing/primitives'
 
 export function Features({ index }: { index?: number } = {}) {
     return (
         <section id="features" className="scroll-mt-28 bg-gray-50 pt-8 pb-16 md:pt-12 md:pb-32 dark:bg-transparent">
             <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
-                {index !== undefined && (
-                    <div className="mb-6">
-                        <SectionOrdinal index={index} />
-                    </div>
-                )}
+                {/* No headline: the bento cards are the argument here. It still
+                    opens with the shared eyebrow pill so the section lines up
+                    with every other one on the page. */}
+                <SectionHeader index={index} align="center" eyebrow="What you get" />
                 <div className="relative">
                     <div className="relative z-10 grid grid-cols-6 gap-3">
                         <Card className="relative col-span-full flex overflow-hidden lg:col-span-2">
@@ -25,7 +24,7 @@ export function Features({ index }: { index?: number } = {}) {
                                     </svg>
                                     <span className="mx-auto block w-fit text-5xl font-semibold">100%</span>
                                 </div>
-                                <h2 className="mt-6 text-center text-3xl font-semibold">Yours to own</h2>
+                                <h3 className="mt-6 text-center text-3xl font-semibold">Yours to own</h3>
                             </CardContent>
                         </Card>
                         <Card className="relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
@@ -56,7 +55,7 @@ export function Features({ index }: { index?: number } = {}) {
                                     </svg>
                                 </div>
                                 <div className="relative z-10 mt-6 space-y-2 text-center">
-                                    <h2 className="group-hover:text-secondary-950 text-lg font-medium transition dark:text-white">Secure by default</h2>
+                                    <h3 className="group-hover:text-secondary-950 text-lg font-medium transition dark:text-white">Secure by default</h3>
                                     <p className="text-foreground">Your own private instance with isolated data. Every agent is dedicated to you, never shared with anyone else.</p>
                                 </div>
                             </CardContent>
@@ -103,7 +102,7 @@ export function Features({ index }: { index?: number } = {}) {
                                     </svg>
                                 </div>
                                 <div className="relative z-10 mt-14 space-y-2 text-center">
-                                    <h2 className="text-lg font-medium transition">High-speed agents that run themselves</h2>
+                                    <h3 className="text-lg font-medium transition">High-speed agents that run themselves</h3>
                                     <p className="text-foreground">A support agent that triages, answers, and escalates from your knowledge base, clearing routine tickets in seconds.</p>
                                 </div>
                             </CardContent>
@@ -115,7 +114,7 @@ export function Features({ index }: { index?: number } = {}) {
                                         <Shield className="m-auto size-5" strokeWidth={1} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="group-hover:text-secondary-950 text-lg font-medium text-zinc-800 transition dark:text-white">Uptime, around the clock</h2>
+                                        <h3 className="group-hover:text-secondary-950 text-lg font-medium text-zinc-800 transition dark:text-white">Uptime, around the clock</h3>
                                         <p className="text-foreground">A DevOps agent that watches logs, catches anomalies, and resolves failures before they ever page your team.</p>
                                     </div>
                                 </div>
@@ -155,7 +154,7 @@ export function Features({ index }: { index?: number } = {}) {
                                         <Users className="m-auto size-6" strokeWidth={1} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h2 className="text-lg font-medium transition">Multiple agents. One platform.</h2>
+                                        <h3 className="text-lg font-medium transition">Multiple agents. One platform.</h3>
                                         <p className="text-foreground">Run a fleet of agents on OpenClaw and Hermes, deployed, monitored, and managed from one place.</p>
                                     </div>
                                 </div>

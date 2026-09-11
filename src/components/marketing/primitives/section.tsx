@@ -50,36 +50,85 @@ export function Section({
         className,
       )}
     >
-      {(eyebrow || title || lead) && (
-        <Reveal className={cn("mb-10 lg:mb-14", innerWidth, align === "center" && "mx-auto text-center")}>
-          {(eyebrow || index !== undefined) && (
-            <span className="flex items-center gap-3">
-              <SectionOrdinal index={index} />
-              {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
-            </span>
-          )}
-          {title && (
-            <h2
-              className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white"
-              style={{ fontWeight: 400 }}
-            >
-              {title}
-            </h2>
-          )}
-          {lead && (
-            <p
-              className={cn(
-                "mt-4 text-[17px] leading-[1.6] text-hero/70",
-                align === "center" ? "mx-auto max-w-[640px]" : "max-w-[680px]",
-              )}
-            >
-              {lead}
-            </p>
-          )}
-        </Reveal>
-      )}
+      <SectionHeader
+        index={index}
+        eyebrow={eyebrow}
+        title={title}
+        lead={lead}
+        align={align}
+        className={innerWidth}
+      />
       {innerWidth ? <div className={innerWidth}>{children}</div> : children}
     </section>
+  )
+}
+
+/**
+ * The opening of a section: ordinal, eyebrow pill, serif heading, lead.
+ *
+ * Exported because the older hand-built sections (the planner, the comparison
+ * matrix, pricing, the integration wheel) are not wrapped in <Section> but must
+ * still open identically — one heading treatment for the whole page, not one
+ * per section. Never restyle a heading locally; change it here.
+ */
+export function SectionHeader({
+  index,
+  eyebrow,
+  title,
+  lead,
+  align = "left",
+  className,
+  leadClassName,
+}: {
+  index?: number
+  eyebrow?: ReactNode
+  title?: ReactNode
+  lead?: ReactNode
+  align?: "left" | "center"
+  className?: string
+  /** Overrides the lead measure, e.g. to hold a short line tighter. */
+  leadClassName?: string
+}) {
+  if (!eyebrow && !title && !lead && index === undefined) return null
+
+  return (
+    <Reveal
+      className={cn(
+        "mb-10 lg:mb-14",
+        className,
+        align === "center" && "mx-auto text-center",
+      )}
+    >
+      {(eyebrow || index !== undefined) && (
+        <span
+          className={cn(
+            "flex items-center gap-3",
+            align === "center" && "justify-center",
+          )}
+        >
+          <SectionOrdinal index={index} />
+          {eyebrow && <SectionEyebrow>{eyebrow}</SectionEyebrow>}
+        </span>
+      )}
+      {title && (
+        <h2
+          className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white"
+          style={{ fontWeight: 400 }}
+        >
+          {title}
+        </h2>
+      )}
+      {lead && (
+        <p
+          className={cn(
+            "mt-4 text-[17px] leading-[1.6] text-hero/70",
+            leadClassName ?? (align === "center" ? "mx-auto max-w-[640px]" : "max-w-[680px]"),
+          )}
+        >
+          {lead}
+        </p>
+      )}
+    </Reveal>
   )
 }
 

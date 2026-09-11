@@ -115,16 +115,16 @@ export const DEPLOYMENT_MODE_MATRIX: readonly {
 
 /** Everything you get regardless of which mode or plan you land on. */
 export const INCLUDED_EVERYWHERE: readonly string[] = [
-  "Your own isolated instance — never shared with another customer",
+  "Your own isolated instance, never shared with another customer",
   "A public URL with SSL terminated for you",
   "Browser chat interface out of the box",
   "Live logs and one-click restart",
   "Web browser and web search tools",
-  "Knowledge base — upload documents the agent cites",
+  "Knowledge base: upload documents the agent cites",
   "Choice of OpenClaw or Hermes runtime",
   "Agent settings backed up to your own Google Drive",
   "Custom subdomains on your own Cloudflare zone",
   "Root password encrypted at rest, never stored in plaintext",
-  "Queries scoped to your account — no cross-tenant reads",
+  "Queries scoped to your account, with no cross-tenant reads",
   "Switch runtime, size, or region later without starting over",
 ] as const

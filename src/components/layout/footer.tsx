@@ -24,41 +24,32 @@ function ExternalLinkArrow() {
   )
 }
 
+// The four-column footer carried over verbatim from the previous site: same
+// headings, same link labels, same order, same hrefs. "Resources" is a link
+// under Company (pointing at the docs FAQ), not a heading of its own.
+//
+// The homepage anchors below all resolve — /#agents, /#features and /#pricing
+// are real section ids on this site's homepage, and /docs carries #faq — so
+// nothing here is a dead link. Note that this site ALSO has standalone /agents
+// and /pricing pages; these entries deliberately point at the homepage
+// sections, matching the previous footer rather than the newer routes.
 const footerSections = [
   {
-    title: "Product",
+    title: "Platform",
     links: [
-      { href: "/agents", label: "Agent roles" },
-      { href: "/runtimes", label: "Runtimes" },
-      { href: "/integrations", label: "Integrations" },
-      { href: "/use-cases", label: "Use cases" },
-      { href: "/api", label: "API" },
-    ],
-  },
-  {
-    title: "Ways to run",
-    links: [
-      { href: "/managed", label: "Managed hosting" },
-      { href: "/byos", label: "Bring your own server" },
-      { href: "/white-label", label: "White-label" },
-      { href: "/pricing", label: "Pricing" },
-    ],
-  },
-  {
-    title: "Learn",
-    links: [
-      { href: "/docs", label: "Docs" },
-      { href: "/comparison", label: "How we compare" },
-      { href: "/security", label: "Security" },
-      { href: "/changelog", label: "Changelog" },
+      { href: "/#agents", label: "Agents" },
+      { href: "/#features", label: "Features" },
+      { href: "/login?deploy=true", label: "Deploy" },
+      { href: "/#pricing", label: "Pricing" },
     ],
   },
   {
     title: "Company",
     links: [
+      { href: "/docs", label: "Docs" },
       { href: "/team", label: "Team" },
       { href: "/careers", label: "Careers" },
-      { href: "/community", label: "Community" },
+      { href: "/docs#faq", label: "Resources" },
     ],
   },
   {
@@ -82,9 +73,13 @@ const footerSections = [
 
 export default function Footer() {
   return (
-    <footer className="relative -mt-8 overflow-hidden pb-4 lg:-mt-16 lg:pb-6">
-      {/* Footer background gradient layer */}
-      <div className="footer-background pointer-events-none absolute bottom-0 left-0 h-[2709px] w-full">
+    <footer className="relative -mt-8 overflow-x-clip pb-4 lg:-mt-16 lg:pb-6">
+      {/* Footer background gradient layer. It is 2709px tall but the footer
+          is ~340px, so overflow-hidden above cropped it at 87.6% of its ramp
+          — already ~89% opaque — leaving a hard edge along the footer's top.
+          overflow-x-clip frees the y-axis so the fade blends up; -z-10 keeps
+          the layer behind the sections it now overlaps. */}
+      <div className="footer-background pointer-events-none absolute bottom-0 left-0 -z-10 h-[2709px] w-full">
         <div className="absolute top-[1183px] lg:top-[886px] left-1/2 -translate-x-1/2 w-[3088px] h-[960px] pointer-events-none dark:hidden">
           <div className="absolute top-0 left-0 h-[960px] w-[1440px]">
             <Image
@@ -113,9 +108,17 @@ export default function Footer() {
 
       {/* Footer links — the first thing in the footer now that the CTA is gone,
           so it carries the top spacing the CTA block used to provide. */}
-      <div className="relative mx-auto mt-12 flex max-w-[390px] gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:mt-20 lg:max-w-[1200px] lg:gap-5">
+      {/* The CLUSTER is centred; the contents of each column are not. So
+          `justify-center` on this row with fixed-width columns and a fixed gap
+          (rather than flex-1 children in a 1200px row, which pushed the four
+          headings ~300px apart), while each column below keeps its heading and
+          links flush left against its own edge. */}
+      <div className="relative mx-auto mt-12 flex max-w-[390px] justify-center gap-2 text-[15px] leading-5 max-lg:flex-wrap max-lg:gap-y-10 max-lg:px-[31px] lg:mt-20 lg:max-w-[760px] lg:gap-x-16">
         {footerSections.map((section) => (
-          <div key={section.title} className="flex-1 max-lg:min-w-[40%]">
+          <div
+            key={section.title}
+            className="flex flex-col text-left max-lg:min-w-[40%] lg:w-[140px]"
+          >
             <h3 className="mb-6 text-hero/[0.56] lg:mb-4">{section.title}</h3>
             <div className="relative flex flex-col">
               {section.links
@@ -154,7 +157,9 @@ export default function Footer() {
       {/* Bottom copyright */}
       <div className="relative mx-auto mt-6 text-center lg:mt-8">
         <p className="text-hero/30 text-sm">
-          &copy; {new Date().getFullYear()} {BRANDING.dbaLine} All rights reserved.
+          &copy; {new Date().getFullYear()} {BRANDING.dbaLine}
+          <br />
+          All rights reserved.
         </p>
       </div>
     </footer>
