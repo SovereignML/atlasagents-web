@@ -3,13 +3,25 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { easing, spring } from "@/lib/motion";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { BRANDING } from "@/configs/branding"
-import { SectionOrdinal } from "@/components/marketing/primitives/section-ordinal";
+import { DEPLOYMENT_MODES } from "@/configs/deployment-modes"
+import { PLANS, formatUsd } from "@/configs/plans"
+import { SectionHeader } from "@/components/marketing/primitives";
+
+// An answer, optionally followed by one link to the page that answers it in
+// full. Only the two decision questions below use `link` — the rest answer
+// themselves in a sentence and a link would just be an exit.
+type Faq = {
+  q: string;
+  a: string;
+  link?: { href: string; label: string };
+};
 
 // Questions someone asks while deciding, not questions that let us restate the
 // pitch. Where the honest answer is "not yet", it says so.
-const faqs = [
+const faqs: Faq[] = [
   {
     q: `What is ${BRANDING.name}?`,
     a: "An AI operations platform. You deploy intelligent agents that handle real work: support, sales, devops, content, research. Your agents run in your own isolated, managed instance, with your configuration and data under your control.",
@@ -39,10 +51,10 @@ const faqs = [
 // Added on top of the original six. These are the questions a visitor asks
 // while deciding rather than while browsing, and the ones where the honest
 // answer is "not yet" — stated plainly instead of omitted.
-const additionalFaqs = [
+const additionalFaqs: Faq[] = [
   {
     q: "Do I have to bring my own server?",
-    a: "No, and most people should not. We provision and manage the machine as part of the plan. Bring your own server is there for people who already have a VPS, a dedicated box, or a homelab machine — you paste one public key into authorized_keys and we manage the agent over SSH for a flat fee. No daemon to install.",
+    a: "No, and most people should not. We provision and manage the machine as part of the plan. Bring your own server is there for people who already have a VPS, a dedicated box, or a homelab machine. You paste one public key into authorized_keys and we manage the agent over SSH for a flat fee. No daemon to install.",
   },
   {
     q: "Is my data shared with other customers, or used for training?",
@@ -50,7 +62,7 @@ const additionalFaqs = [
   },
   {
     q: "Can it connect to Gmail, Slack, or our CRM?",
-    a: "Not through native connectors today. That path is Model Context Protocol servers, which are built but not yet wired end to end — the product lists them as coming soon and will not let you enable them. What works now: the agent drives tools through a real browser, and it can run its own self-hosted n8n server to build workflows.",
+    a: "Not through native connectors today. That path is Model Context Protocol servers, which are built but not yet wired end to end. The product lists them as coming soon and will not let you enable them. What works now: the agent drives tools through a real browser, and it can run its own self-hosted n8n server to build workflows.",
   },
   {
     q: "Is there any lock-in?",
@@ -58,12 +70,55 @@ const additionalFaqs = [
   },
   {
     q: "Can I try one before paying?",
-    a: "Yes, without a card. A free demo agent is a real deployment on a real box — the same provisioning path a paid one takes. It tears itself down after 30 minutes, so treat it as a test drive rather than a free tier.",
+    a: "Yes, without a card. A free demo agent is a real deployment on a real box, the same provisioning path a paid one takes. It tears itself down after 30 minutes, so treat it as a test drive rather than a free tier.",
   },
 ];
 
+// Inherited from the four-mode decision matrix that used to sit high on the
+// homepage. It was the site's central piece of choice architecture and also the
+// heaviest thing above the fold; as prose in the FAQ it answers the same two
+// questions without asking anyone to read a table to get there. The matrix
+// itself still exists in full on /pricing.
+//
+// Both bodies are BUILT from the configs the product is priced and provisioned
+// from, never retyped — a plan that changes price changes this paragraph too.
+const decisionFaqs: Faq[] = [
+  {
+    q: "There are four ways to run an agent. Which one am I?",
+    a: `The difference is who owns the server and who pays for it. ${DEPLOYMENT_MODES.map(
+      (mode) => `${mode.name}: "${mode.forWho}"`,
+    ).join(" ")} Most people are the second one.`,
+    link: { href: "/pricing#plans", label: "Compare all four side by side" },
+  },
+  {
+    q: "Which plan is best for me?",
+    a: `The self-serve plans all provision the same machine; what changes is the credits you get each month and how many people can share the account. ${PLANS.filter(
+      (plan) => plan.tier !== "byos",
+    )
+      .map((plan) => {
+        // The Enterprise label reads "From $499/mo" — sentence-cased for a
+        // pricing card, wrong mid-sentence here.
+        const price =
+          plan.tier === "enterprise"
+            ? ` (${(plan.enterprisePriceLabel ?? "custom pricing").replace(/^./, (c) => c.toLowerCase())})`
+            : plan.displayPriceMonthly === 0
+              ? "" // "Free (free)" reads as a stutter — the name is the price.
+              : ` (${formatUsd(plan.displayPriceMonthly)}/mo)`;
+        const seats = Number.isFinite(plan.seats)
+          ? `${plan.seats} ${plan.seats === 1 ? "seat" : "seats"}`
+          : "unlimited seats";
+        const credits =
+          plan.creditsPerPeriod > 0
+            ? `${plan.creditsPerPeriod.toLocaleString()} credits`
+            : "custom credits";
+        return `${plan.name}${price}: ${plan.description.toLowerCase()}, ${credits}, ${seats}.`;
+      })
+      .join(" ")} If you are only trying it, start on the free demo. It is a real deployment, and nothing you build on it is wasted.`,
+    link: { href: "/pricing#plans", label: "See what each plan includes" },
+  },
+];
 
-function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
+function FAQItem({ q, a, link, index }: Faq & { index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -108,6 +163,15 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
           >
             <div className="px-5 pb-5">
               <p className="text-sm text-text-secondary leading-relaxed">{a}</p>
+              {link && (
+                <Link
+                  href={link.href}
+                  className="mt-3 inline-flex items-center gap-2 text-[13px] font-medium text-signal hover:underline underline-offset-4"
+                >
+                  {link.label}
+                  <span aria-hidden>→</span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
@@ -121,28 +185,21 @@ export function KnowledgeBaseFAQ({ index }: { index?: number } = {}) {
     <section id="faq" className="relative mx-auto max-w-[1180px] scroll-mt-28 px-6 pt-24 pb-8 lg:pb-12">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-faint/30 to-transparent" />
 
-      <div className="relative z-10 max-w-[860px]">
-        <motion.div
-          initial={{ opacity: 0, y: 48, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.8, ease: easing.outExpo }}
-          className="mb-12"
-        >
-          <span className="flex items-center gap-3">
-            <SectionOrdinal index={index} />
-            <span className="inline-flex items-center gap-2 rounded-full border border-hero/[0.10] bg-hero/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.14em] text-hero/60">
-              Questions
-            </span>
-          </span>
-          <h2 className="mt-5 font-serif text-[clamp(1.75rem,3.6vw,2.6rem)] leading-[1.08] tracking-[-0.4px] text-hero-white" style={{ fontWeight: 400 }}>
-            The things people ask before deploying one
-          </h2>
-        </motion.div>
+      {/* mx-auto: the 860px column is narrower than the 1180px section, so
+          without it the whole FAQ sits flush-left while every other section on
+          the page is centred. */}
+      <div className="relative z-10 mx-auto max-w-[860px]">
+        <SectionHeader
+          index={index}
+          align="center"
+          eyebrow="Questions"
+          title="The things people ask before deploying one"
+          className="mb-12 lg:mb-12"
+        />
 
         <div className="space-y-3">
-          {[...faqs, ...additionalFaqs].map((faq, i) => (
-            <FAQItem key={faq.q} q={faq.q} a={faq.a} index={i} />
+          {[...faqs, ...additionalFaqs, ...decisionFaqs].map((faq, i) => (
+            <FAQItem key={faq.q} {...faq} index={i} />
           ))}
         </div>
       </div>

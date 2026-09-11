@@ -1,7 +1,10 @@
 // Single source of truth for product identity. Edit here, propagates everywhere.
 //
-// This file is intentionally byte-identical to sovereignml-web/src/configs/branding.ts.
-// If you change one, change the other in the same pass — nothing enforces it.
+// This file WAS byte-identical to sovereignml-web/src/configs/branding.ts. It
+// no longer is: `legalEntity` gained the comma of the registered name and
+// `dbaLine` was added here only. [WEB] was deliberately left alone — it is what
+// atlasagents.dev serves until the cutover, and this pass was scoped to [WEB2].
+// If [WEB] has to ship before then, port those two fields and this note.
 
 export const BRANDING = {
   name: "Atlas Agents",
@@ -18,7 +21,18 @@ export const BRANDING = {
   // The entity is deliberately NOT renamed: SovereignML L.L.C. remains the
   // registered company, and sovereignml.com is becoming the parent-company
   // site. "Atlas Agents" is the product operated by that entity.
-  legalEntity: "SovereignML L.L.C.",
+  // Punctuated as the entity is actually registered with the state — the comma
+  // is part of the name, not a typo. Terms, Privacy, Refund and SLA all render
+  // this string, so it has to match the filing.
+  //
+  // Both of these END IN A PERIOD. Callers must not add their own: the four
+  // legal-page copyright lines did, and rendered "L.L.C.. All rights reserved."
+  legalEntity: "SovereignML, L.L.C.",
+  // The product-and-operator line. "Atlas Agents" is a trade name, not a
+  // company: anywhere the operator has to be identified to a customer — the
+  // footer copyright, a payment disclosure — says so in one breath rather than
+  // leaving them to reconcile two names.
+  dbaLine: "Atlas Agents, a DBA of SovereignML, L.L.C.",
   jurisdiction: "North Carolina, USA",
   // Hosts served before the Atlas Agents rename. They stay canonical — so they
   // can't be claimed as white-label custom domains (src/lib/host.ts) — and are

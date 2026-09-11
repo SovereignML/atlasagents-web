@@ -12,15 +12,21 @@ export function WhatsIncluded({ index }: { index?: number } = {}) {
       index={index}
       id="included"
       eyebrow="On every plan"
+      align="center"
       title="None of this is an add-on"
       lead="Isolation, SSL, logs, backups, and your own domain are not the premium tier. They are what running an agent requires, so they are in the base price."
     >
       <IncludedList items={INCLUDED_EVERYWHERE} />
 
-      <p className="mt-8 text-[14px] text-hero/50">
-        Plans differ by credits, live agents, and seats — not by whether your data is
+      <p className="mt-8 mx-auto max-w-[640px] text-center text-[14px] text-hero/50">
+        Plans differ by credits, live agents, and seats, not by whether your data is
         isolated.{" "}
-        <Link href="/pricing" className="text-signal hover:underline underline-offset-4">
+        <Link
+          href="/pricing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-signal hover:underline underline-offset-4"
+        >
           See what does change
         </Link>
         .

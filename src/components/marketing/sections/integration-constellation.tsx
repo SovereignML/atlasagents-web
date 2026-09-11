@@ -170,22 +170,28 @@ export function IntegrationConstellation() {
               "linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)",
           }}
         >
-          {/* Icon rows */}
-          <div className="flex flex-col items-center gap-2 md:gap-3">
+          {/* Icon rows. The hole behind the orb is a MASK on the rows, not a
+              disc painted over them. It was a div filled with var(--background),
+              which only vanishes while the backdrop is exactly that flat colour
+              — and the footer's gradient now reaches up behind this section, so
+              a painted disc would show as a lighter patch. Masking removes the
+              pixels instead of covering them, so whatever is behind shows
+              through and the hole cannot seam against it.
+              Same geometry as the old pocket: 144x112 ellipse, clear to 30%,
+              opaque by 75%. Applied here, not on the wrapper, so the hub orb
+              (a sibling) stays unmasked. */}
+          <div
+            className="flex flex-col items-center gap-2 md:gap-3"
+            style={{
+              WebkitMaskImage:
+                "radial-gradient(144px 112px at 50% 50%, transparent 30%, #000 75%)",
+              maskImage:
+                "radial-gradient(144px 112px at 50% 50%, transparent 30%, #000 75%)",
+            }}
+          >
             <Marquee items={ROW_ONE} direction="left" reduce={reduce} />
             <Marquee items={ROW_TWO} direction="right" reduce={reduce} />
           </div>
-
-          {/* Center pocket — fades icons out behind the orb in the page's own
-              background colour, so it works in both themes. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 h-56 w-72 -translate-x-1/2 -translate-y-1/2"
-            style={{
-              background:
-                "radial-gradient(closest-side, var(--background) 30%, color-mix(in srgb, var(--background) 70%, transparent) 55%, transparent 75%)",
-            }}
-          />
 
           {/* Center hub orb */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">

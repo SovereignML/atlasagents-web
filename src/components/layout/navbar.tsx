@@ -11,15 +11,15 @@ import { easing, staggerDelay } from "@/lib/motion"
 
 // The original four, plus the routes added since. `/#features`, `/#agents` and
 // `/#pricing` still resolve — those homepage sections are all still rendered.
+// Five entries, deliberately. Runtimes, Integrations, Security and API are all
+// still reachable from the footer and from the pages that link to them; a nav
+// that lists every page is a sitemap, not a way in.
 const NAV_LINKS = [
-  { href: "/#features", label: "Features" },
   { href: "/agents", label: "Agents" },
-  { href: "/runtimes", label: "Runtimes" },
-  { href: "/integrations", label: "Integrations" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/security", label: "Security" },
-  { href: "/api", label: "API" },
+  { href: "/#features", label: "Features" },
+  { href: "/#pricing", label: "Pricing" },
   { href: "/docs", label: "Docs" },
+  { href: "/blog", label: "Blog" },
 ]
 
 export default function Navbar({ isAuthenticated = false }: { isAuthenticated?: boolean }) {

@@ -14,8 +14,9 @@ export function AgentRoles({ index }: { index?: number } = {}) {
       index={index}
       id="agents"
       eyebrow="The roles"
+      align="center"
       title="Hire the specialist, not the model"
-      lead="Each role ships with its own operating instructions — how a support specialist should escalate, how a DevOps engineer should read an incident. You adjust from there instead of starting from nothing."
+      lead="Each role ships with its own operating instructions: how a support specialist should escalate, how a DevOps engineer should read an incident. You adjust from there instead of starting from nothing."
     >
       <RevealGroup className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {AGENTS.map((agent) => (
@@ -42,7 +43,7 @@ export function AgentRoles({ index }: { index?: number } = {}) {
         ))}
       </RevealGroup>
 
-      <div className="mt-8">
+      <div className="mt-8 text-center">
         <Link
           href="/agents"
           className="inline-flex items-center gap-2 text-[14px] font-medium text-signal hover:underline underline-offset-4"

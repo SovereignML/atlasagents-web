@@ -132,7 +132,7 @@ export const AGENT_MARKETING: Record<string, AgentMarketing> = {
   },
   research: {
     headline: "The analyst who actually reads the sources",
-    tagline: "Gathers, compares, and synthesizes — with the receipts.",
+    tagline: "Gathers, compares, and synthesizes, with the receipts.",
     team: "Operations",
     responsibilities: [
       "Search the live web rather than answering from training data",
@@ -160,7 +160,7 @@ export const AGENT_MARKETING: Record<string, AgentMarketing> = {
   },
   content: {
     headline: "A writer who already knows your voice",
-    tagline: "Drafts, edits, and optimizes — in your tone, not a model's.",
+    tagline: "Drafts, edits, and optimizes in your tone, not a model's.",
     team: "Marketing",
     responsibilities: [
       "Propose a structure before drafting anything long",
