@@ -7,6 +7,7 @@
     "predev": "lsof -ti:3002 | xargs kill 2>/dev/null || true",
     "dev": "next dev -p 3002",
     "build": "next build",
+    "postbuild": "rm -rf .next/standalone/public .next/standalone/.next/static && cp -R public .next/standalone/public && cp -R .next/static .next/standalone/.next/static",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
