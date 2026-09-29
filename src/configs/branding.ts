@@ -34,6 +34,10 @@ export const BRANDING = {
   // leaving them to reconcile two names.
   dbaLine: "Atlas Agents, a DBA of SovereignML, L.L.C.",
   jurisdiction: "North Carolina, USA",
+  // The parent company's site. Linked (followed, not nofollow) from every place
+  // `legalEntity` is shown, so the operator is one click away and sovereignml.com
+  // gets the backlinks.
+  parentCompanyUrl: "https://sovereignml.com",
   // Hosts served before the Atlas Agents rename. They stay canonical — so they
   // can't be claimed as white-label custom domains (src/lib/host.ts) — and are
   // redirected in next.config.ts. Split by destination: `site` hosts belong to
@@ -65,10 +69,10 @@ export const BRANDING = {
   privacyEmail: "privacy@atlasagents.dev",
   legalEmail: "legal@atlasagents.dev",
   github: "https://github.com/sovereignml", // {{TODO: Atlas Agents GitHub org}}
-  twitter: "https://twitter.com/sovereignml", // {{TODO: Atlas Agents handle}}
+  twitter: "https://x.com/AtlasAgents_Dev",
   linkedin: "https://linkedin.com/company/sovereignml", // {{TODO: Atlas Agents page}}
   telegram: "#", // {{TODO: real Telegram invite URL}}
-  demoUrl: "https://tidycal.com/sovereignml/demo", // {{TODO: Atlas Agents booking link}}
+  demoUrl: "https://tidycal.com/atlasagents/demo",
   positioning: {
     headline: "Others give you tools. Atlas Agents gives you agents that work.",
     bullets: [

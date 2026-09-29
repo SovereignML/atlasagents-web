@@ -157,7 +157,16 @@ export default function Footer() {
       {/* Bottom copyright */}
       <div className="relative mx-auto mt-6 text-center lg:mt-8">
         <p className="text-hero/30 text-sm">
-          &copy; {new Date().getFullYear()} {BRANDING.dbaLine}
+          {/* BRANDING.dbaLine spelled out so the operator can be linked. */}
+          &copy; {new Date().getFullYear()} {BRANDING.name}, a DBA of{" "}
+          <a
+            href={BRANDING.parentCompanyUrl}
+            target="_blank"
+            rel="noopener"
+            className="underline-offset-2 hover:text-hero/60 hover:underline"
+          >
+            {BRANDING.legalEntity}
+          </a>
           <br />
           All rights reserved.
         </p>
