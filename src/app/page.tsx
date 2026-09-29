@@ -267,7 +267,7 @@ export default function Home() {
                 className="mt-8 flex items-center justify-center"
               >
                 <Link href="/register?deploy=true" className="btn-green text-base">
-                  Deploy Your First Agent
+                  Try a Free Agent
                 </Link>
               </motion.div>
             </motion.div>
