@@ -3,6 +3,7 @@ import { Inter, Geist_Mono } from "next/font/google"
 import { BRANDING } from "@/configs/branding"
 import { AppProviders } from "@/components/app-providers"
 import { Toaster } from "@/components/ui/sonner"
+import { GoogleTag } from "@/components/google-tag"
 import "./globals.css"
 
 const inter = Inter({
@@ -64,6 +65,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <AppProviders>{children}</AppProviders>
         <Toaster />
+        <GoogleTag />
       </body>
     </html>
   )
