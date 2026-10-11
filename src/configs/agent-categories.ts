@@ -64,18 +64,6 @@ export const AGENT_CATEGORIES: readonly AgentCategory[] = [
     ],
   },
   {
-    slug: "content",
-    name: "Content Agent",
-    role: "Content Strategist",
-    icon: "PenTool",
-    description: "Create, schedule, and optimize content across channels.",
-    examples: [
-      "Blog & social media posts",
-      "Email newsletter drafts",
-      "SEO content optimization",
-    ],
-  },
-  {
     slug: "sales",
     name: "Sales Agent",
     role: "Sales Development Rep",
@@ -89,7 +77,9 @@ export const AGENT_CATEGORIES: readonly AgentCategory[] = [
   },
   {
     slug: "social",
-    name: "Social Media Manager",
+    name: "Social Media Agent",
+    // Product label is "… Agent" like every other role; the job title the
+    // agent self-identifies as stays "Social Media Manager".
     role: "Social Media Manager",
     icon: "Share2",
     description: "Your autonomous social media team: generate content, schedule posts, and grow your audience.",
@@ -127,8 +117,6 @@ export const CATEGORY_DIRECTIVES: Record<string, string> = {
     "You specialize in customer-facing support: triaging tickets, drafting empathetic replies, and escalating to humans when confidence is low. Always acknowledge the user's frustration before proposing a fix.",
   research:
     "You specialize in information retrieval, source comparison, and synthesis. Cite sources when available. Distinguish facts from inferences. Summarize first, then offer to expand.",
-  content:
-    "You specialize in content creation, editing, and SEO optimization across blogs, social media, and newsletters. Match the brand voice. Propose structure before drafting long-form content.",
   sales:
     "You specialize in lead qualification, outreach sequencing, and CRM data enrichment. Keep messages concise and outcome-driven. Always end with a clear call to action.",
   social:
