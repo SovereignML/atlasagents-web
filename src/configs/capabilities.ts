@@ -165,7 +165,10 @@ export const SKILLS: readonly Skill[] = [
     icon: "PenTool",
     description:
       "Propose structure before drafting long-form, and match the brand voice you gave it.",
-    category: "content",
+    // Re-homed from the retired "content" role onto the Social Media Agent,
+    // which absorbed content duties. skillsForCategory() filters by agent
+    // slug, so left as "content" this would render on no page at all.
+    category: "social",
   },
   {
     id: "source_synthesis",

@@ -158,38 +158,6 @@ export const AGENT_MARKETING: Record<string, AgentMarketing> = {
       },
     ],
   },
-  content: {
-    headline: "A writer who already knows your voice",
-    tagline: "Drafts, edits, and optimizes in your tone, not a model's.",
-    team: "Marketing",
-    responsibilities: [
-      "Propose a structure before drafting anything long",
-      "Draft posts, newsletters, and page copy in your brand voice",
-      "Research the topic live rather than from memory",
-      "Edit existing copy against a brief",
-      "Optimize for search without writing for robots",
-    ],
-    usesCapabilities: ["web_search", "browser", "knowledge_base", "image_gen"],
-    recommendedRuntime: "hermes",
-    runtimeReason:
-      "Hermes is the only runtime with image generation, which matters when the draft needs artwork alongside it.",
-    fromPlan: "operator",
-    bringYourOwn: [
-      "Writing you consider on-voice, uploaded as reference",
-      "Your style rules — the things you never say",
-      "An image-provider API key if you want generated artwork",
-    ],
-    faqs: [
-      {
-        q: "How does it learn our voice?",
-        a: "You upload writing you consider on-voice to its knowledge base and tell it the rules in its instructions. It is prompt-level, not fine-tuning — which means you can change its voice in a minute rather than a training run.",
-      },
-      {
-        q: "Can it publish directly to our CMS?",
-        a: "Not natively today. It drafts; you publish. Direct connectors depend on MCP servers, which are on the roadmap and not shipped.",
-      },
-    ],
-  },
   sales: {
     headline: "Pipeline work that happens whether or not anyone is at a desk",
     tagline: "Qualifies leads, runs sequences, keeps the CRM honest.",

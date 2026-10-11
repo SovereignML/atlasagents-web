@@ -17,7 +17,6 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 const USE_CASES = [
   { label: "Handle support tickets", agentSlug: "support" },
   { label: "Monitor infrastructure", agentSlug: "devops" },
-  { label: "Generate content", agentSlug: "content" },
   { label: "Qualify leads", agentSlug: "sales" },
   { label: "Research & analyze", agentSlug: "research" },
   { label: "Automate workflows", agentSlug: "automation" },
